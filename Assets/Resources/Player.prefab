@@ -273,7 +273,7 @@ MonoBehaviour:
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 1
     ExtrapolateOption: 2
-    ExtrapolateSpeed: 1
+    ExtrapolateSpeed: 3
     ExtrapolateIncludingRoundTripTime: 1
     ExtrapolateNumberOfStoredPositions: 1
   m_RotationModel:
