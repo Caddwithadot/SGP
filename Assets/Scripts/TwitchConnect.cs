@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.Events;
 using System.Net.Sockets;
 using System.IO;
+using Unity.VisualScripting;
 
 public class TwitchConnect : MonoBehaviour
 {
-    //public UnityEvent<string, string> OnChatMessage;
     TcpClient Twitch;
     StreamReader Reader;
     StreamWriter Writer;
+
+    public GameObject ChatManager;
 
     const string URL = "irc.chat.twitch.tv";
     const int PORT = 6667;
@@ -31,6 +32,8 @@ public class TwitchConnect : MonoBehaviour
         Writer.WriteLine("NICK " + User.ToLower());
         Writer.WriteLine("JOIN #" + Channel.ToLower());
         Writer.Flush();
+
+        print("Connected to " + Channel + " 's chat.");
     }
 
     private void Awake()
@@ -59,22 +62,21 @@ public class TwitchConnect : MonoBehaviour
 
             if (message.Contains("PRIVMSG"))
             {
-                // :sgp_alt!sgp_alt@sgp_alt.tmi.twitch.tv PRIVMSG #possiblycadd :testtest
+                // :sgp_alt!sgp_alt@sgp_alt.tmi.twitch.tv PRIVMSG #possiblycadd :test test
                 int splitPoint = message.IndexOf("!");
                 string chatter = message.Substring(1, splitPoint - 1);
 
                 splitPoint = message.IndexOf(":", 1);
                 string msg = message.Substring(splitPoint + 1);
 
-                //OnChatMessage?.Invoke(chatter, msg);
-                print(message);
+                CustomEvent.Trigger(ChatManager, "NewMessage", chatter, msg);
             }
 
             if(message.Contains("PING :tmi.twitch.tv"))
             {
                 Writer.WriteLine("PONG " + "tmi.twitch.tv" + "\r\n");
                 Writer.Flush();
-                print("replied to PONG");
+                print("PONG");
             }
         }
     }
