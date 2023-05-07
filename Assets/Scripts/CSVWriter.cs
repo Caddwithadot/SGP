@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using System.IO;
 
 public class CSVWriter : MonoBehaviour
@@ -40,6 +41,7 @@ public class CSVWriter : MonoBehaviour
                 tw.WriteLine(myPlayerList.player[i].Chatter + "," + myPlayerList.player[i].Display);
             }
             tw.Close();
+            AssetDatabase.Refresh();
         }
     }
 }
