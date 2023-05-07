@@ -26,15 +26,7 @@ public class CSVWriter : MonoBehaviour
         filename = Application.dataPath + "/SGP_PlayerData.csv";
     }
 
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            WriteCSV();
-        }
-    }
-
-        public void WriteCSV()
+    public void WriteCSV()
     {
         if(myPlayerList.player.Length > 0)
         {

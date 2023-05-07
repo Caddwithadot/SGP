@@ -21,12 +21,7 @@ public class CSVReader : MonoBehaviour
 
     public PlayerList myPlayerList = new PlayerList();
 
-    void Start()
-    {
-        ReadCSV();
-    }
-
-    void ReadCSV()
+    public void ReadCSV()
     {
         string[] data = textAssetData.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
 
