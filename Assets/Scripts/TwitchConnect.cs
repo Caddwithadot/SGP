@@ -53,6 +53,7 @@ public class TwitchConnect : MonoBehaviour
 
         if (!Twitch.Connected)
         {
+            print("not connected");
             ConnectToTwitch();
         }
 
