@@ -1436,9 +1436,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1169847693}
+  - component: {fileID: 1169847696}
   - component: {fileID: 1169847695}
   - component: {fileID: 1169847694}
-  - component: {fileID: 1169847696}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -1454,7 +1454,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1169847692}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 473.24625, y: 248.2953, z: -132.34003}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1491,6 +1491,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data:
     _json: '{"declarations":{"collection":{"$content":[{"name":"test","value":{"$content":"Hello","$type":"System.String"},"typeHandle":{"Identification":"System.String,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"Columns","value":{"$content":0,"$type":"System.Int32"},"typeHandle":{"Identification":"System.Int32,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"Rows","value":{"$content":0,"$type":"System.Int32"},"typeHandle":{"Identification":"System.Int32,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences: []
 --- !u!114 &1169847696
@@ -1505,6 +1507,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671e55cbfada3d14e9726d9d855d2f89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastLetter: D
+  maxSheetsNum: 1000
 --- !u!1 &1210982134
 GameObject:
   m_ObjectHideFlags: 0
