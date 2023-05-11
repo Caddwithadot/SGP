@@ -10,18 +10,23 @@ public class SheetConverter : MonoBehaviour
     [SerializeField]
     private int maxNum = 1000;
 
+    private SheetWriter sheetWriter;
+    private SheetReader sheetReader;
+    private SheetData sheetData;
+    private int lastRow;
+
+    private bool isWritingNewRow = false;
+
     public void Start()
     {
-        //string wah = Variables.Object(gameObject).Get<string>("test");
+        sheetWriter = new SheetWriter();
+        sheetReader = new SheetReader();
+        sheetData = sheetReader.GetSheetData("Sheet1!A1:" + lastLetter + maxNum);
+        lastRow = sheetReader.GetLastRow();
 
-        SheetWriter sheetWriter = new SheetWriter();
-        SheetReader sheetReader = new SheetReader();
+        Debug.Log("Last row: " + lastRow);
 
-        SheetData sheetData = sheetReader.GetSheetData("Sheet1!A1:" + lastLetter + maxNum);
-
-        Debug.Log("Last row: " + sheetReader.GetLastRow());
-
-        //READER//
+        // READER //
 
         if (sheetData != null)
         {
@@ -41,15 +46,36 @@ public class SheetConverter : MonoBehaviour
                 Variables.Object(gameObject).Set("Rows", sheetData.numRows);
             }
         }
+    }
 
-        //WRITER//
-
-        var writeValues = new List<IList<object>>
+    void Update()
+    {
+        // WRITER //
+        /*
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            new List<object> { "A1", "B1" },
-            new List<object> { "A2", "B2" },
-            new List<object> { "A3", "B3", "C3", "D3" }
-        };
-        sheetWriter.WriteData("Sheet1", "A1:" + lastLetter + "3", writeValues);
+            lastRow += 1;
+            Debug.Log("Last row: " + lastRow);
+
+            isWritingNewRow = true;
+        }
+
+        if (isWritingNewRow)
+        {
+            var writeValues = new List<IList<object>>();
+            var newRow = new List<object>();
+
+            for (int col = 0; col < sheetData.numColumns; col++)
+            {
+                newRow.Add(col + 1);
+            }
+
+            writeValues.Add(newRow);
+
+            sheetWriter.WriteData("Sheet1", "A" + lastRow + ":" + lastLetter + lastRow, writeValues);
+
+            isWritingNewRow = false;
+        }
+        */
     }
 }
