@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ApplicationVariables
   m_EditorClassIdentifier: 
   _data:
-    _json: '{"declarations":{"collection":{"$content":[{"name":"playerList","value":{"$content":[],"$type":"Unity.VisualScripting.AotList"},"typeHandle":{"Identification":"Unity.VisualScripting.AotList,
+    _json: '{"declarations":{"collection":{"$content":[{"name":"playerList","value":{"$content":[{"$content":"qwerew","$type":"System.String"},{"$content":"wee","$type":"System.String"},{"$content":"wee","$type":"System.String"},{"$content":"dsada","$type":"System.String"},{"$content":"wee","$type":"System.String"}],"$type":"Unity.VisualScripting.AotList"},"typeHandle":{"Identification":"Unity.VisualScripting.AotList,
       Unity.VisualScripting.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences: []
