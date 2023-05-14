@@ -9,27 +9,23 @@ public class MouseLook : MonoBehaviour
     public float mouseSensitivity = 100f;
     public Transform playerBody;
     float xRotation = 0f;
-    public CinemachineFreeLook freeLookCamera;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         xRotation = 0f;
-        freeLookCamera.m_XAxis.m_InputAxisName = "";
-        freeLookCamera.m_YAxis.m_InputAxisName = "";
+        transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     void Update()
     {
-        Vector2 mouseDelta = Mouse.current.delta.ReadValue() * mouseSensitivity * Time.deltaTime;
-
-        float mouseX = mouseDelta.x;
-        float mouseY = mouseDelta.y;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        freeLookCamera.m_XAxis.Value += mouseX;
-        freeLookCamera.m_YAxis.Value -= mouseY;
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        playerBody.Rotate(Vector3.up * mouseX);
     }
 }

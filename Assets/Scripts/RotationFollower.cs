@@ -5,17 +5,24 @@ using UnityEngine;
 public class RotationFollower : MonoBehaviour
 {
     public Transform Target;
-    private float minRotation = 300f;
-    private float maxRotation = 30f;
-    
+    public float minRotation = 300f;
+    public float maxRotation = 30f;
 
     void Update()
     {
         Vector3 currentRotation = Target.transform.eulerAngles;
 
-        if(currentRotation.x >= 300 || currentRotation.x <= 30 || currentRotation.x == 0)
+        if(currentRotation.x >= minRotation || currentRotation.x <= maxRotation || currentRotation.x == 0)
         {
             transform.rotation = Target.rotation;
+        }
+        else if(currentRotation.x < minRotation && currentRotation.x >= 270)
+        {
+            transform.rotation = Quaternion.Euler(minRotation, currentRotation.y, currentRotation.z);
+        }
+        else if(currentRotation.x > maxRotation && currentRotation.x <= 90)
+        {
+            transform.rotation = Quaternion.Euler(maxRotation, currentRotation.y , currentRotation.z);
         }
     }
 }
