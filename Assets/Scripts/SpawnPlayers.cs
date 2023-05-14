@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Unity.VisualScripting;
-using Photon.Chat;
-using TMPro;
-using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
+using System;
 
 public class SpawnPlayers : MonoBehaviour
 {
@@ -19,14 +16,13 @@ public class SpawnPlayers : MonoBehaviour
     public float minZ;
     public float maxZ;
 
-    [Header ("For Kicking Players.")]
+    [Header("For Kicking Players.")]
     public string targetPlayerNickname;
-    public string targetPhotonId;
     Nametag nametag;
 
     public void Start()
     {
-        Vector2 randomPosition = new Vector3(Random.Range(minX, maxX), 1.15f, Random.Range(minZ, maxZ));
+        Vector2 randomPosition = new Vector3(UnityEngine.Random.Range(minX, maxX), 1.15f, UnityEngine.Random.Range(minZ, maxZ));
         GameObject obj = PhotonNetwork.Instantiate(PlayerPrefab.name, randomPosition, Quaternion.identity);
         nametag = obj.GetComponentInChildren<Nametag>();
 

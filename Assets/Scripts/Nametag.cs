@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
+using Photon.Realtime;
 
 public class Nametag : MonoBehaviourPunCallbacks
 {
@@ -16,7 +17,7 @@ public class Nametag : MonoBehaviourPunCallbacks
 
     public void GetKicked(string idCheck)
     {
-        if(photonView.Owner.UserId == idCheck)
+        if (photonView.Owner.UserId == idCheck)
         {
             Debug.Log("Kicked?");
             SceneManager.LoadScene("Kicked");
