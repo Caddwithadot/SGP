@@ -17,7 +17,7 @@ public class Nametag : MonoBehaviourPunCallbacks
 
     public void GetKicked(string idCheck)
     {
-        if (photonView.Owner.UserId == idCheck)
+        if (photonView.Owner.UserId != idCheck)
         {
             Debug.Log("Kicked?");
             SceneManager.LoadScene("Kicked");

@@ -18,15 +18,12 @@ public class SpawnPlayers : MonoBehaviour
 
     [Header("For Kicking Players.")]
     public string targetPlayerNickname;
-    Nametag nametag;
 
-    public void Start()
+    private void Start()
     {
         Vector2 randomPosition = new Vector3(UnityEngine.Random.Range(minX, maxX), 1.15f, UnityEngine.Random.Range(minZ, maxZ));
         GameObject obj = PhotonNetwork.Instantiate(PlayerPrefab.name, randomPosition, Quaternion.identity);
-        nametag = obj.GetComponentInChildren<Nametag>();
-
-        Debug.Log(nametag.name);
+        obj.name = obj.GetPhotonView().Owner.NickName;
     }
 
     private string GetPlayerIdByNickname(string nickname)
@@ -50,7 +47,15 @@ public class SpawnPlayers : MonoBehaviour
         {
             string playerId = GetPlayerIdByNickname(targetPlayerNickname);
 
-            nametag.GetKicked(playerId);
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject player in players)
+            {
+                Nametag nametag = player.GetComponentInChildren<Nametag>();
+                if (nametag.gameObject.name == targetPlayerNickname)
+                {
+                    nametag.GetKicked(playerId);
+                }
+            }
         }
     }
 }
