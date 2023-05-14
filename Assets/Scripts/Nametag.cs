@@ -14,10 +14,11 @@ public class Nametag : MonoBehaviourPunCallbacks
         CustomEvent.Trigger(GameObject.FindGameObjectWithTag("PlayerManager"), "NewPlayer", gameObject.name);
     }
 
-    public void GetKicked(string nameCheck)
+    public void GetKicked(string idCheck)
     {
-        if(nameCheck == photonView.Owner.NickName)
+        if(photonView.Owner.UserId == idCheck)
         {
+            Debug.Log("Kicked?");
             SceneManager.LoadScene("Kicked");
         }
     }
