@@ -26,21 +26,15 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         // Find the player object associated with the given view ID
         PhotonView playerView = PhotonView.Find(playerViewID);
 
-        Debug.Log(playerView);
-
         // Make sure we're not kicking ourselves
-        if (playerView.Owner == PhotonNetwork.LocalPlayer)
-        {
-            Debug.Log("You cannot kick yourself!");
-        }
-        else if (playerView != null && playerView.IsMine)
+        if (playerView.IsMine)
         {
             // Kick the player from the room
             Debug.Log($"Player {kickedPlayerNickname} has been kicked from the room!");
-            PhotonNetwork.CloseConnection(playerView.Owner);
 
             // Load the kicked scene for this player only
             SceneManager.LoadScene("Kicked");
+
         }
     }
 
