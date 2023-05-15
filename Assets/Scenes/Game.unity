@@ -468,6 +468,7 @@ GameObject:
   - component: {fileID: 451129195}
   - component: {fileID: 451129194}
   - component: {fileID: 451129197}
+  - component: {fileID: 451129198}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: PlayerManager
@@ -533,6 +534,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3605af958183eb449e1ff7f13ea0ad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kickedPlayerNickname: 
+--- !u!114 &451129198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451129193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1190555005
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,7 +966,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dd90e84ce191ed439232d79ecafa8cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerManager: {fileID: 451129193}
   PlayerPrefab: {fileID: 4130517955969181245, guid: 104eba26450167b47ae0c994eb9f00d8, type: 3}
   minX: -9
   maxX: 9
