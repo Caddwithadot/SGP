@@ -73,10 +73,10 @@ public class TwitchConnect : MonoBehaviour
 
                 CustomEvent.Trigger(ChatManager, "NewMessage", chatter, msg);
 
-                if (Variables.Object(ChatManager).Get<bool>("sendJoinNum"))
+                if (Variables.Object(ChatManager).Get<bool>("sendLink"))
                 {
-                    SendJoinNum();
-                    Variables.Object(ChatManager).Set("sendJoinNum", false);
+                    SendLink();
+                    Variables.Object(ChatManager).Set("sendLink", false);
                 }
             }
 
@@ -90,7 +90,7 @@ public class TwitchConnect : MonoBehaviour
         }
     }
 
-    public void SendJoinNum()
+    public void SendLink()
     {
         Writer.WriteLine("PRIVMSG #" + Channel.ToLower() + " :" + "https://notcadd.itch.io/testing-game");
         Writer.Flush();

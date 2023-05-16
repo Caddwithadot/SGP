@@ -12,6 +12,6 @@ public class Nametag : MonoBehaviourPunCallbacks
     {
         gameObject.name = photonView.Owner.NickName;
 
-        CustomEvent.Trigger(GameObject.FindGameObjectWithTag("PlayerManager"), "NewPlayer", gameObject.name);
+        CustomEvent.Trigger(GameObject.FindGameObjectWithTag("PlayerManager"), "NewPlayer", gameObject.name, photonView.ViewID);
     }
 }

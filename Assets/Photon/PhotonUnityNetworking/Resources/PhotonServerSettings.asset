@@ -42,6 +42,11 @@ MonoBehaviour:
   - KickPlayer
   - LoadKickedScene
   - KickAndLoadScene
+  - ConfirmPrompt
+  - DeclinePrompt
+  - Kick
+  - DenyPrompt
+  - StartConfirm
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
