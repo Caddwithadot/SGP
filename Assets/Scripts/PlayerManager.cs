@@ -25,6 +25,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             int playerID = Variables.Object(this).Get<int>("currentViewID");
 
             GetComponent<PhotonView>().RPC("ConfirmPrompt", RpcTarget.All, new object[] { playerID });
+
+            Variables.Object(this).Set("activateConfirmFor", null);
         }
 
         if (Variables.Object(this).Get<string>("activateDenyFor") != null)
@@ -32,6 +34,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             int playerID = Variables.Object(this).Get<int>("currentViewID");
 
             GetComponent<PhotonView>().RPC("DenyPrompt", RpcTarget.All, new object[] { playerID });
+
+            Variables.Object(this).Set("activateDenyFor", null);
         }
     }
 
@@ -40,11 +44,13 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     {
         PhotonView playerView = PhotonView.Find(playerViewID);
 
-        if (playerView)
+        Debug.Log("1: " + playerView);
+        if (playerView.IsMine)
         {
+            Debug.Log("2: " + playerView);
             playerView.gameObject.transform.Find("_Confirm").gameObject.SetActive(true);
 
-            Variables.Object(this).Set("activateConfirmFor", null);
+            Variables.Object(playerView.gameObject).Set("currentlyConfirming", true);
         }
     }
 
@@ -53,30 +59,28 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     {
         PhotonView playerView = PhotonView.Find(playerViewID);
 
+        Debug.Log("3: " + playerView);
         if (playerView.IsMine)
         {
-            playerView.gameObject.transform.Find("_Deny").gameObject.SetActive(true);
-
-            Variables.Object(this).Set("activateDenyFor", null);
+            if (Variables.Object(playerView.gameObject).Get<bool>("currentlyConfirming") == false)
+            {
+                Debug.Log("4: " + playerView);
+                playerView.gameObject.transform.Find("_Deny").gameObject.SetActive(true);
+            }
         }
     }
 
     [PunRPC]
     private void Kick(int playerViewID)
     {
-        // Find the player object associated with the given view ID
         PhotonView playerView = PhotonView.Find(playerViewID);
 
-        // Make sure we're not kicking ourselves
         if (playerView.IsMine)
         {
-            // Kick the player from the room
             Debug.Log($"Player {kickedPlayerNickname} has been kicked from the room!");
 
-            // Destroys the player object that is kicked, hopefully
             PhotonNetwork.Destroy(playerView.gameObject);
 
-            // Load the kicked scene for this player only
             SceneManager.LoadScene("Kicked");
         }
     }
