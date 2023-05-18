@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Photon.Pun;
+using Unity.VisualScripting;
+using Photon.Realtime;
 
 public class DisplayName : MonoBehaviourPunCallbacks
 {

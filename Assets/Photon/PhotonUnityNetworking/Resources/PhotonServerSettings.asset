@@ -47,6 +47,9 @@ MonoBehaviour:
   - Kick
   - DenyPrompt
   - StartConfirm
+  - Deny
+  - SetActiveText
+  - UsernameUsed
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

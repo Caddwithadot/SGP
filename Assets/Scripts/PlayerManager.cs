@@ -11,32 +11,34 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private string kickedPlayerNickname;
 
+    private void Start()
+    {
+        //PhotonNetwork.IsMessageQueueRunning = true;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
             int playerID = GameObject.Find(kickedPlayerNickname).GetComponent<PhotonView>().ViewID;
 
-            GetComponent<PhotonView>().RPC("Kick", RpcTarget.All, new object[] { playerID });
+            GetComponent<PhotonView>().RPC("Kick", RpcTarget.Others, new object[] { playerID });
         }
-
-        if (Variables.Object(this).Get<string>("activateConfirmFor") != null)
+        /*
+        if (Variables.Object(this).Get<int>("activateConfirmFor") > 0)
         {
-            int playerID = Variables.Object(this).Get<int>("currentViewID");
+            int playerID = Variables.Object(this).Get<int>("activateConfirmFor");
 
             GetComponent<PhotonView>().RPC("ConfirmPrompt", RpcTarget.All, new object[] { playerID });
-
-            Variables.Object(this).Set("activateConfirmFor", null);
         }
 
-        if (Variables.Object(this).Get<string>("activateDenyFor") != null)
+        if (Variables.Object(this).Get<int>("activateDenyFor") > 0)
         {
-            int playerID = Variables.Object(this).Get<int>("currentViewID");
+            int playerID = Variables.Object(this).Get<int>("activateDenyFor");
 
-            GetComponent<PhotonView>().RPC("DenyPrompt", RpcTarget.All, new object[] { playerID });
-
-            Variables.Object(this).Set("activateDenyFor", null);
+            GetComponent<PhotonView>().RPC("Deny", RpcTarget.Others, new object[] { playerID });
         }
+        */
     }
 
     [PunRPC]
@@ -44,29 +46,26 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     {
         PhotonView playerView = PhotonView.Find(playerViewID);
 
-        Debug.Log("1: " + playerView);
         if (playerView.IsMine)
         {
-            Debug.Log("2: " + playerView);
-            playerView.gameObject.transform.Find("_Confirm").gameObject.SetActive(true);
+            Debug.Log("Confirm: " + playerView);
+            playerView.gameObject.transform.Find("_Confirm").gameObject.transform.Find("ConfirmPrompt").gameObject.SetActive(true);
 
             Variables.Object(playerView.gameObject).Set("currentlyConfirming", true);
         }
     }
 
     [PunRPC]
-    private void DenyPrompt(int playerViewID)
+    private void Deny(int playerViewID)
     {
         PhotonView playerView = PhotonView.Find(playerViewID);
 
-        Debug.Log("3: " + playerView);
         if (playerView.IsMine)
         {
-            if (Variables.Object(playerView.gameObject).Get<bool>("currentlyConfirming") == false)
-            {
-                Debug.Log("4: " + playerView);
-                playerView.gameObject.transform.Find("_Deny").gameObject.SetActive(true);
-            }
+            PhotonNetwork.Destroy(playerView.gameObject);
+
+            SceneManager.LoadScene("Lobby 1");
+
         }
     }
 
@@ -87,6 +86,23 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        CustomEvent.Trigger(this.gameObject, "PlayerLeft", otherPlayer.NickName);
+        int photonViewID = GetPhotonViewID(otherPlayer);
+        CustomEvent.Trigger(this.gameObject, "PlayerLeft", otherPlayer.NickName, photonViewID);
+    }
+
+    private int GetPhotonViewID(Player player)
+    {
+        int photonViewID = -1;
+
+        foreach (PhotonView photonView in PhotonNetwork.PhotonViewCollection)
+        {
+            if (photonView.Owner == player)
+            {
+                photonViewID = photonView.ViewID;
+                break;
+            }
+        }
+
+        return photonViewID;
     }
 }

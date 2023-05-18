@@ -4,7 +4,6 @@ using UnityEngine;
 using System.Net.Sockets;
 using System.IO;
 using Unity.VisualScripting;
-using JetBrains.Annotations;
 
 public class TwitchConnect : MonoBehaviour
 {
@@ -72,12 +71,6 @@ public class TwitchConnect : MonoBehaviour
                 string msg = message.Substring(splitPoint + 1);
 
                 CustomEvent.Trigger(ChatManager, "NewMessage", chatter, msg);
-
-                if (Variables.Object(ChatManager).Get<bool>("sendLink"))
-                {
-                    SendLink();
-                    Variables.Object(ChatManager).Set("sendLink", false);
-                }
             }
 
             if(message.Contains("PING :tmi.twitch.tv"))
@@ -88,11 +81,5 @@ public class TwitchConnect : MonoBehaviour
                 Debug.Log("PONG");
             }
         }
-    }
-
-    public void SendLink()
-    {
-        Writer.WriteLine("PRIVMSG #" + Channel.ToLower() + " :" + "https://notcadd.itch.io/testing-game");
-        Writer.Flush();
     }
 }
