@@ -148,11 +148,11 @@ Transform:
   m_GameObject: {fileID: 39288216}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.25, y: 0.25, z: 2.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1646526186}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &77099030
 GameObject:
@@ -360,7 +360,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &273815881
 MonoBehaviour:
@@ -734,7 +734,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data:
-    _json: '{"declarations":{"collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _json: '{"declarations":{"collection":{"$content":[{"name":"newGuy","value":null,"typeHandle":{"Identification":"System.String,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"cap","value":{"$content":1000,"$type":"System.Int32"},"typeHandle":{"Identification":"System.Int32,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences: []
 --- !u!4 &1480955379
 Transform:
@@ -857,7 +859,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1646526186}
-  - component: {fileID: 1646526188}
   - component: {fileID: 1646526187}
   m_Layer: 0
   m_Name: ChatterManager
@@ -878,10 +879,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2145907680}
   - {fileID: 39288217}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1646526187
 MonoBehaviour:
@@ -895,34 +895,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a5683ee4c6e7942a477d85e86bedcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chatManager: {fileID: 1480955376}
   chatterParent: {fileID: 39288217}
-  chatter: {fileID: 7030366760415158659, guid: fabd8fd270e339d46bef5455c5d3fc6b, type: 3}
+  chatter: {fileID: 107648709654925388, guid: 8059ccb927b6add4bb1b0f662ee8fd36, type: 3}
   startPos: {fileID: 39288217}
-  numberOfRows: 5
-  objectsPerRow: 10
+  numberOfRows: 20
+  objectsPerRow: 50
   spacing: 2.25
   startingY: 1.1
-  rowOffset: 1.125
-  yOffset: 1
---- !u!114 &1646526188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646526184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0a5683ee4c6e7942a477d85e86bedcc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chatterParent: {fileID: 2145907680}
-  chatter: {fileID: 3410272878695275637, guid: 89512dd8aa7d4854bb090ca2aab4d8c8, type: 3}
-  startPos: {fileID: 2145907680}
-  numberOfRows: 5
-  objectsPerRow: 10
-  spacing: 2.25
-  startingY: -0.1
   rowOffset: 1.125
   yOffset: 1
 --- !u!1 &1731200427
@@ -1125,7 +1105,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2047313816
 GameObject:
@@ -1224,34 +1204,3 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2047313816}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &2145907679
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2145907680}
-  m_Layer: 0
-  m_Name: StandParent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2145907680
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2145907679}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.25, y: 0.25, z: 2.25}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1646526186}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

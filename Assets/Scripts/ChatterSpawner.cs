@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Realtime;
+using Unity.VisualScripting;
 
-public class ChatterSpawner1 : MonoBehaviour
+public class ChatterSpawner : MonoBehaviour
 {
+    public GameObject chatManager;
     public Transform chatterParent;
     public GameObject chatter;
     public Transform startPos;
@@ -22,13 +24,15 @@ public class ChatterSpawner1 : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Variables.Object(chatManager).Get<string>("newGuy") != null || Input.GetKeyDown(KeyCode.E))
         {
-            InstantiateNextChatter();
+            InstantiateNextChatter(Variables.Object(chatManager).Get<string>("newGuy"));
+
+            Variables.Object(chatManager).Set("newGuy", null);
         }
     }
 
-    private void InstantiateNextChatter()
+    private void InstantiateNextChatter(string chatterName)
     {
         if (currentRow < numberOfRows && currentCol < objectsPerRow)
         {
@@ -39,6 +43,7 @@ public class ChatterSpawner1 : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(0, 180, 0);
             GameObject chatterAvatar = PhotonNetwork.Instantiate(chatter.name, startingPos, rotation);
             chatterAvatar.transform.SetParent(chatterParent);
+            chatterAvatar.name = chatterName;
 
             currentCol++;
             if (currentCol >= objectsPerRow)
