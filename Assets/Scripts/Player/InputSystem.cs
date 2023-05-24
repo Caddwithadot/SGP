@@ -10,7 +10,7 @@ public class InputSystem : MonoBehaviour
     private PlayerActions playerActions;
     public bool grounded = false;
     public float groundCheckDistance;
-    private float bufferCheckDistance = 0.625f;
+    private float bufferCheckDistance = -0.625f;
     float meshColliderHeight;
 
     void Start()
@@ -23,7 +23,7 @@ public class InputSystem : MonoBehaviour
         MeshCollider meshCollider = transform.GetChild(1).GetComponent<MeshCollider>();
         Bounds bounds = meshCollider.bounds;
         meshColliderHeight = bounds.size.y;
-        groundCheckDistance = (meshColliderHeight / 2) - bufferCheckDistance;
+        groundCheckDistance = (meshColliderHeight / 2) + bufferCheckDistance;
 
         RaycastHit hit;
         if (Physics.Raycast(transform.position, -transform.up, out hit, groundCheckDistance))
