@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Realtime;
 using Unity.VisualScripting;
+using System;
 
 public class ChatterSpawner : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class ChatterSpawner : MonoBehaviour
     private int currentRow = 0;
     private int currentCol = 0;
 
+    private int seatNum;
+
     void Update()
     {
         if (Variables.Object(chatManager).Get<string>("newGuy") != null || Input.GetKeyDown(KeyCode.E))
@@ -34,22 +37,53 @@ public class ChatterSpawner : MonoBehaviour
 
     private void InstantiateNextChatter(string chatterName)
     {
-        if (currentRow < numberOfRows && currentCol < objectsPerRow)
-        {
-            float xOffset = (currentRow % 2 == 0) ? 0f : rowOffset;
-            float rowStep = startingY + (currentRow * yOffset);
+        var seatList = Variables.Object(this).Get("seatList") as IList<int>;
+        var destroyedPosList = Variables.Object(this).Get("destroyedPositionList") as IList<Vector3>;
 
-            Vector3 startingPos = new Vector3(startPos.position.x + currentCol * spacing + xOffset, startPos.position.y + rowStep, startPos.position.z + currentRow * spacing);
+        if (seatList.Count > 0)
+        {
+            int smallest = seatList[0];
+            int smallestIndex = 0;
+
+            for (int i = 1; i < seatList.Count; i++)
+            {
+                if (seatList[i] < smallest)
+                {
+                    smallest = seatList[i];
+                    smallestIndex = i;
+                }
+            }
+            Vector3 startPos = destroyedPosList[smallestIndex];
             Quaternion rotation = Quaternion.Euler(0, 180, 0);
-            GameObject chatterAvatar = PhotonNetwork.Instantiate(chatter.name, startingPos, rotation);
+            GameObject chatterAvatar = PhotonNetwork.Instantiate(chatter.name, startPos, rotation);
             chatterAvatar.transform.SetParent(chatterParent);
             chatterAvatar.name = chatterName;
+            Variables.Object(chatterAvatar).Set("SeatNum", smallest);
 
-            currentCol++;
-            if (currentCol >= objectsPerRow)
+            seatList.RemoveAt(smallestIndex);
+            destroyedPosList.RemoveAt(smallestIndex);
+        }
+        else
+        {
+            if (currentRow < numberOfRows && currentCol < objectsPerRow)
             {
-                currentCol = 0;
-                currentRow++;
+                float xOffset = (currentRow % 2 == 0) ? 0f : rowOffset;
+                float rowStep = startingY + (currentRow * yOffset);
+
+                Vector3 startingPos = new Vector3(startPos.position.x + currentCol * spacing + xOffset, startPos.position.y + rowStep, startPos.position.z + currentRow * spacing);
+                Quaternion rotation = Quaternion.Euler(0, 180, 0);
+                GameObject chatterAvatar = PhotonNetwork.Instantiate(chatter.name, startingPos, rotation);
+                chatterAvatar.transform.SetParent(chatterParent);
+                chatterAvatar.name = chatterName;
+                Variables.Object(chatterAvatar).Set("SeatNum", seatNum);
+                seatNum++;
+
+                currentCol++;
+                if (currentCol >= objectsPerRow)
+                {
+                    currentCol = 0;
+                    currentRow++;
+                }
             }
         }
     }

@@ -18,7 +18,7 @@ public class TwitchConnect : MonoBehaviour
 
     string User = "sgp_alt";
     string OAuth = "oauth:vh0dxqt8dp6y58x9rg8aaa5oe5y21u";
-    string Channel = "nickmercs";
+    string Channel = "tectone";
 
     float PingCounter = 0;
 
