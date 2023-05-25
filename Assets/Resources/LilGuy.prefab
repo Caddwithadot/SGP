@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 2947949779586019854}
   - component: {fileID: 6420271187955100921}
   - component: {fileID: 895963470263651868}
+  - component: {fileID: 2644921875768701539}
   m_Layer: 0
   m_Name: LilGuy
   m_TagString: Untagged
@@ -144,8 +145,9 @@ MonoBehaviour:
   _data:
     _json: '{"declarations":{"collection":{"$content":[{"name":"chatterManager","value":null,"typeHandle":{"Identification":"UnityEngine.GameObject,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"SeatNum","value":{"$content":0,"$type":"System.Int32"},"typeHandle":{"Identification":"System.Int32,
-      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"TimerDuration","value":{"$content":60.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"TimerDuration","value":{"$content":300.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"Time","value":{"$content":0.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"colorNum","value":{"$content":0,"$type":"System.Int32"},"typeHandle":{"Identification":"System.Int32,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences: []
 --- !u!114 &895963470263651868
@@ -164,6 +166,36 @@ MonoBehaviour:
     _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
     _objectReferences:
     - {fileID: 11400000, guid: 151b1a5e2460f5945aa623a154c27fd7, type: 2}
+--- !u!114 &2644921875768701539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107648709654925388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60fbf885223b2f141856e704141683f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors:
+  - {fileID: 2100000, guid: 5e1f4bb0aff92e545be5977976eba22d, type: 2}
+  - {fileID: 2100000, guid: aa95d59b96c8640499878d15538e93f9, type: 2}
+  - {fileID: 2100000, guid: 5f0ac5aa3c39d2942b55ca7d58825532, type: 2}
+  - {fileID: 2100000, guid: 788f2d487a7a083469deda8b6aeddc6e, type: 2}
+  - {fileID: 2100000, guid: 4d307c3be12299745aed65f178ca57cc, type: 2}
+  - {fileID: 2100000, guid: c04af24ca14976041806e7410da48a16, type: 2}
+  - {fileID: 2100000, guid: 208936b6046c2e549bc209ab12349668, type: 2}
+  - {fileID: 2100000, guid: c9f107b4341948442b16b4389f8f6d63, type: 2}
+  - {fileID: 2100000, guid: 158c127e5d9fa1e4ab29234f85b98273, type: 2}
+  - {fileID: 2100000, guid: c830cba1958d51c439637a601946cadc, type: 2}
+  - {fileID: 2100000, guid: c5619e3a455d48245bc1dc5f6157bb07, type: 2}
+  - {fileID: 2100000, guid: 4e9f05f3b19a8c442a82ba3e7753fe58, type: 2}
+  - {fileID: 2100000, guid: 608460f311765604c9f592146dcef991, type: 2}
+  - {fileID: 2100000, guid: fbb31e4b64efb404186f663cbadd2229, type: 2}
+  - {fileID: 2100000, guid: 57b97c403a42c0b46824edbfc008b469, type: 2}
+  - {fileID: 2100000, guid: ba86a035be30e9944bfd578eaee1a9f4, type: 2}
+  lilBod: {fileID: 8000456128093745163}
 --- !u!1 &933599511374442618
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,7 +437,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8848810374240701247, guid: c32eb6fa4744c39478417818502ec33e, type: 3}
+  - {fileID: 2100000, guid: 5e1f4bb0aff92e545be5977976eba22d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

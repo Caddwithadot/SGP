@@ -8,7 +8,7 @@ using System;
 
 public class ChatterSpawner : MonoBehaviour
 {
-    public GameObject chatManager;
+    private GameObject chatManager;
     public Transform chatterParent;
     public GameObject chatter;
     public Transform startPos;
@@ -24,6 +24,11 @@ public class ChatterSpawner : MonoBehaviour
     private int currentCol = 0;
 
     private int seatNum;
+
+    private void Awake()
+    {
+        chatManager = GameObject.FindGameObjectWithTag("ChatManager");
+    }
 
     void Update()
     {

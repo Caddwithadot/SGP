@@ -11,16 +11,24 @@ public class TwitchConnect : MonoBehaviour
     StreamReader Reader;
     StreamWriter Writer;
 
-    public GameObject ChatManager;
+    private GameObject ChatManager;
 
     const string URL = "irc.chat.twitch.tv";
     const int PORT = 6667;
 
     string User = "sgp_alt";
-    string OAuth = "oauth:vh0dxqt8dp6y58x9rg8aaa5oe5y21u";
     string Channel = "tectone";
 
+    [SerializeField]
+    private string OAuth;
+
     float PingCounter = 0;
+
+    private void Awake()
+    {
+        ChatManager = GameObject.FindGameObjectWithTag("ChatManager");
+        ConnectToTwitch();
+    }
 
     private void ConnectToTwitch()
     {
@@ -34,11 +42,6 @@ public class TwitchConnect : MonoBehaviour
         Writer.Flush();
 
         print("Connected to " + Channel + " 's chat.");
-    }
-
-    private void Awake()
-    {
-        ConnectToTwitch();
     }
 
     void Update()
