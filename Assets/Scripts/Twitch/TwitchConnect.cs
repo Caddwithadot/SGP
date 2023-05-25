@@ -17,7 +17,7 @@ public class TwitchConnect : MonoBehaviour
     const int PORT = 6667;
 
     string User = "sgp_alt";
-    string Channel = "tectone";
+    string Channel = "possiblycadd";
 
     [SerializeField]
     private string OAuth;
@@ -81,7 +81,6 @@ public class TwitchConnect : MonoBehaviour
                 Writer.WriteLine("PONG " + "tmi.twitch.tv" + "\r\n");
                 Writer.Flush();
                 print("PONG");
-                Debug.Log("PONG");
             }
         }
     }
