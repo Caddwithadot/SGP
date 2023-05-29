@@ -29,7 +29,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Movement"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""2f07e923-0c40-43ac-9bfb-805d5bc0ff75"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
@@ -52,7 +52,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -113,11 +113,22 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""34438ce1-b2f7-49c0-85f5-50a0d6fb15b5"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mobile Gamepad"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""207b96ae-69db-4830-998d-5fc68dd4ade3"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Mobile Gamepad"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -128,7 +139,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -146,11 +157,11 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""31fd7b2f-39c5-4336-a5f0-184d34a429b2"",
-                    ""path"": ""<SwitchProControllerHID>/buttonEast"",
+                    ""id"": ""c6de76ed-8489-4ba9-995e-cff2ea9f22d6"",
+                    ""path"": ""<Gamepad>/dpad/down"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": ""Mobile Gamepad"",
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -165,16 +176,16 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
             ""devices"": []
         },
         {
-            ""name"": ""Gamepad"",
-            ""bindingGroup"": ""Gamepad"",
+            ""name"": ""Mobile Gamepad"",
+            ""bindingGroup"": ""Mobile Gamepad"",
             ""devices"": [
                 {
-                    ""devicePath"": ""<Gamepad>"",
+                    ""devicePath"": ""<iOSGameController>"",
                     ""isOptional"": false,
                     ""isOR"": false
                 },
                 {
-                    ""devicePath"": ""<SwitchProControllerHID>"",
+                    ""devicePath"": ""<AndroidGamepad>"",
                     ""isOptional"": false,
                     ""isOR"": false
                 }
@@ -300,13 +311,13 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_KeyboardSchemeIndex];
         }
     }
-    private int m_GamepadSchemeIndex = -1;
-    public InputControlScheme GamepadScheme
+    private int m_MobileGamepadSchemeIndex = -1;
+    public InputControlScheme MobileGamepadScheme
     {
         get
         {
-            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
-            return asset.controlSchemes[m_GamepadSchemeIndex];
+            if (m_MobileGamepadSchemeIndex == -1) m_MobileGamepadSchemeIndex = asset.FindControlSchemeIndex("Mobile Gamepad");
+            return asset.controlSchemes[m_MobileGamepadSchemeIndex];
         }
     }
     public interface IPlayerControlsControllerActions

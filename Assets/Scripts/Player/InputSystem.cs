@@ -8,10 +8,10 @@ public class InputSystem : MonoBehaviour
     private Rigidbody Rigidbody;
     private PlayerInput playerInput;
     private PlayerActions playerActions;
+    public float velocidad = 30f;
+    public float jump = 10f;
     public bool grounded = false;
-    public float groundCheckDistance;
-    private float bufferCheckDistance = -0.625f;
-    float meshColliderHeight;
+    RaycastHit hit;
 
     void Start()
     {
@@ -20,20 +20,22 @@ public class InputSystem : MonoBehaviour
 
     void Update()
     {
-        MeshCollider meshCollider = transform.GetChild(1).GetComponent<MeshCollider>();
-        Bounds bounds = meshCollider.bounds;
-        meshColliderHeight = bounds.size.y;
-        groundCheckDistance = (meshColliderHeight / 2) + bufferCheckDistance;
+        Ray ray = new Ray(transform.position, -Vector3.up);
+        Debug.DrawRay(transform.position, Vector3.down * 10, Color.red);
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, -transform.up, out hit, groundCheckDistance))
+        float height_above_ground = hit.distance;
+        //Debug.Log(height_above_ground);
+
+        if (Physics.Raycast(ray, out hit))
         {
-            grounded = true;
-            Debug.DrawRay(hit.point, hit.normal, Color.red);
-        }
-        else
-        {
-            grounded = false;
+            if (height_above_ground <= 1.00001f)
+            {
+                grounded = true;
+            }
+            else
+            {
+                grounded = false;
+            }
         }
     }
 
@@ -41,7 +43,7 @@ public class InputSystem : MonoBehaviour
     {
         //Definitely didn't just copy and paste this shit
         Vector2 inputVector = playerActions.PlayerControlsController.Movement.ReadValue<Vector2>();
-        float speed = 30f;
+        float speed = velocidad;
 
         // Get the player's current rotation
         Quaternion playerRotation = transform.rotation;
@@ -83,8 +85,7 @@ public class InputSystem : MonoBehaviour
             if (grounded)
             {
                 //Debug.Log("Jump " + context.phase);
-                Rigidbody.AddForce(Vector3.up * 5f, ForceMode.Impulse);
-                grounded = false;
+                Rigidbody.AddForce(Vector3.up * jump, ForceMode.Impulse);
             }
         }
     }
