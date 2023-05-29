@@ -80,7 +80,6 @@ public class TwitchConnect : MonoBehaviour
             {
                 Writer.WriteLine("PONG " + "tmi.twitch.tv" + "\r\n");
                 Writer.Flush();
-                print("PONG");
             }
         }
     }

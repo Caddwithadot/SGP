@@ -3,9 +3,9 @@ using TMPro;
 
 public class FontScaler : MonoBehaviour
 {
-    public float minFontSize = 10f;
-    public float maxFontSize = 100f;
-    public int characterThreshold = 50;
+    public float minFontSize = 2;
+    public float maxFontSize = 8;
+    public int characterThreshold = 25;
 
     private TextMeshProUGUI textComponent;
 
