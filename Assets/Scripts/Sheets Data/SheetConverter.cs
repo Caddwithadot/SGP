@@ -5,7 +5,6 @@ using UnityEngine;
 public class SheetConverter : MonoBehaviour
 {
     public string lastLetter;
-
     public int maxNum;
 
     private SheetWriter sheetWriter;
@@ -18,6 +17,7 @@ public class SheetConverter : MonoBehaviour
     private List<string> colorList;
 
     private List<string> newNames;
+    private List<string> newColors;
 
     private void Awake()
     {
@@ -29,6 +29,7 @@ public class SheetConverter : MonoBehaviour
         colorList = new List<string>();
 
         newNames = new List<string>();
+        newColors = new List<string>();
     }
 
     public void Start()
@@ -38,7 +39,7 @@ public class SheetConverter : MonoBehaviour
         sheetReader = new SheetReader();
 
         // Get sheet data and last row index
-        sheetData = sheetReader.GetSheetData("Sheet1!A1:" + lastLetter + maxNum);
+        sheetData = sheetReader.GetSheetData("Sheet1!A2:" + lastLetter + maxNum);
         lastRow = sheetReader.GetLastRow();
 
         Debug.Log("Last row: " + lastRow);
@@ -66,6 +67,7 @@ public class SheetConverter : MonoBehaviour
 
     void Update()
     {
+        // New chatter spawned
         if (Variables.Object(chatManager).Get<string>("newGuy1") != null)
         {
             string name = Variables.Object(chatManager).Get<string>("newGuy1");
@@ -76,23 +78,72 @@ public class SheetConverter : MonoBehaviour
             Variables.Object(chatManager).Set("newGuy1", null);
         }
 
+        // Chatter has changed something
+        if (Variables.Object(this.gameObject).Get<string>("name") != null)
+        {
+            string name = Variables.Object(this.gameObject).Get<string>("name");
+
+            // The chatter's color has been changed
+            if (Variables.Object(this.gameObject).Get<string>("colorChange") != null)
+            {
+                string color = Variables.Object(this.gameObject).Get<string>("colorChange");
+                UpdateColor(name, color);
+
+                Variables.Object(this.gameObject).Set("colorChange", null);
+            }
+
+            Variables.Object(this.gameObject).Set("name", null);
+        }
+
+        // TEMPORARY
         if (Input.GetKeyDown(KeyCode.F))
         {
-            // Write the new names to the sheet
-            UpdateNames(newNames);
+            // Update the colors
+            List<string> allColors = new List<string>(colorList);
+            allColors.AddRange(newColors);
+
+            // Write the new shit on the sheet
+            WriteShit(newNames, allColors);
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            foreach(string color in colorList)
+            {
+                Debug.Log(color);
+            }
+        }
+    }
+
+    void UpdateColor(string name, string color)
+    {
+        int index = nameList.IndexOf(name);
+
+        // If the name is already written down and not a new name
+        if (index != -1)
+        {
+            colorList[index] = color;
+        }
+        else if (newNames.Contains(name))
+        {
+            index = newNames.IndexOf(name);
+            newColors[index] = color;
         }
     }
 
     void CheckName(string name)
     {
-        // Whenever a new person joins the instance
+        // When a new person joins and is not written down
         if (!nameList.Contains(name) && !newNames.Contains(name))
         {
             // Add them to the list of new names if they aren't already written down
             newNames.Add(name);
+
+            // Add default color to the new color list for when a new person joins
+            newColors.Add("0");
         }
 
-        // Find the color for the person that joined
+        // Find the color for the written person that joined
         int nameIndex = nameList.IndexOf(name);
         if (nameIndex != -1)
         {
@@ -116,9 +167,10 @@ public class SheetConverter : MonoBehaviour
         return newNames;
     }
 
-    void UpdateNames(List<string> names)
+    void WriteShit(List<string> names, List<string> colors)
     {
-        var writeValues = new List<IList<object>>();
+        var writeNameValues = new List<IList<object>>();
+        var writeColorValues = new List<IList<object>>();
 
         int remainingSpace = maxNum - lastRow;
 
@@ -133,22 +185,33 @@ public class SheetConverter : MonoBehaviour
             if (!nameList.Contains(name))
             {
                 var newRow = new List<object>();
-                newRow.Add(name);
-                writeValues.Add(newRow);
+                newRow.Add(name);   
+                writeNameValues.Add(newRow);
                 nameList.Add(name); // Add the name to nameList
             }
         }
 
-        // Write the new names to the sheet if there are any
-        if (writeValues.Count > 0)
+        // Create color values for each name
+        foreach (string color in colors)
         {
-            int startIndex = lastRow + 1;
-            int endIndex = startIndex + writeValues.Count - 1;
+            var newColorRow = new List<object>();
+            newColorRow.Add(color);
+            writeColorValues.Add(newColorRow);
+        }
 
-            sheetWriter.WriteData("Sheet1", "A" + startIndex + ":" + lastLetter + endIndex, writeValues);
+        int startIndex = lastRow + 2;
+        int endIndex = startIndex + writeNameValues.Count - 1;
+
+        // Write the new names to the sheet if there are any
+        if (writeNameValues.Count > 0)
+        {
+            sheetWriter.WriteData("Sheet1", "A" + startIndex + ":A" + endIndex, writeNameValues);
 
             lastRow = endIndex;
         }
+
+        // Update all the colors
+        sheetWriter.WriteData("Sheet1", "B2:B" + endIndex, writeColorValues);
 
         // Check if the maximum number of rows has been reached
         if (lastRow >= maxNum)
@@ -156,6 +219,7 @@ public class SheetConverter : MonoBehaviour
             Debug.Log("MaxNum limit reached!");
         }
 
-        newNames = GetNewNames(nameList); // Update newNames list after writing
+        newColors.Clear();
+        newNames.Clear();
     }
 }
