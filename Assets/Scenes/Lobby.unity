@@ -946,8 +946,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1964230896}
-        m_TargetAssemblyTypeName: RoomManager, Assembly-CSharp
+      - m_Target: {fileID: 1964230898}
+        m_TargetAssemblyTypeName: NewRoomManager, Assembly-CSharp
         m_MethodName: CreateRoom
         m_Mode: 1
         m_Arguments:
@@ -1740,9 +1740,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1964230896}
-        m_TargetAssemblyTypeName: RoomManager, Assembly-CSharp
-        m_MethodName: JoinRoom
+      - m_Target: {fileID: 1964230898}
+        m_TargetAssemblyTypeName: NewRoomManager, Assembly-CSharp
+        m_MethodName: CheckPlayerList
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1876,6 +1876,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1964230897}
   - component: {fileID: 1964230896}
+  - component: {fileID: 1964230898}
   m_Layer: 0
   m_Name: RoomManager
   m_TagString: Untagged
@@ -1890,7 +1891,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1964230895}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5a459ce4d53ccc4b843c91cfd408512, type: 3}
   m_Name: 
@@ -1911,3 +1912,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1964230898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964230895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cf62e37ddfeb7a4fb08ebb8e88b16fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerDisplayName: {fileID: 584055517}

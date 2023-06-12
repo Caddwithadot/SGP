@@ -50,6 +50,8 @@ MonoBehaviour:
   - Deny
   - SetActiveText
   - UsernameUsed
+  - RPC_LoadedGameScene
+  - RPC_LoadGameOthers
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
