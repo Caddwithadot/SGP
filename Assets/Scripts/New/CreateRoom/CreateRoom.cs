@@ -14,6 +14,8 @@ public class CreateRoom : MonoBehaviourPunCallbacks
         get { return _roomName; }
     }
 
+    public TMP_InputField nameInput;
+
     public void OnClick_CreateRoom()
     {
         RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = 4 };
@@ -21,6 +23,7 @@ public class CreateRoom : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CreateRoom(RoomName.text, roomOptions, TypedLobby.Default))
         {
             print("create room successfully sent.");
+            PhotonNetwork.NickName = nameInput.text;
         }
         else
         {

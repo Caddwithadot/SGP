@@ -9,9 +9,6 @@ public class PlayerNetwork : MonoBehaviour
     private PhotonView photonView;
     private int PlayersInGame = 0;
 
-    [SerializeField]
-    private TMP_InputField nameInput;
-
     private void Awake()
     {
         Instance = this;

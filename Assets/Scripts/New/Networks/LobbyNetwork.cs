@@ -8,18 +8,10 @@ public class LobbyNetwork : MonoBehaviourPunCallbacks
 {
     public TMP_InputField nameInput;
 
-    public bool nameSet = false;
-
     private void Start()
     {
         print("Connecting to server..");
         PhotonNetwork.ConnectUsingSettings();
-    }
-
-    public void OnClickSetName()
-    {
-        PhotonNetwork.NickName = nameInput.text;
-        nameSet = true;
     }
 
     public override void OnConnectedToMaster()

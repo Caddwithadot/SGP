@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class LobbyCanvas : MonoBehaviour
@@ -12,11 +13,13 @@ public class LobbyCanvas : MonoBehaviour
         get { return _roomLayoutGroup; }
     }
 
+    public TMP_InputField nameInput;
+
     public void OnClickJoinRoom(string roomName)
     {
         if (PhotonNetwork.JoinRoom(roomName))
         {
-
+            PhotonNetwork.NickName = nameInput.text;
         }
         else
         {
