@@ -2,6 +2,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class PlayerLayoutGroup : MonoBehaviourPunCallbacks
 {
@@ -10,9 +11,14 @@ public class PlayerLayoutGroup : MonoBehaviourPunCallbacks
 
     private List<PlayerListing> playerListings = new List<PlayerListing>();
 
-    //Use this only if we want to cick out all players when the master client leaves.
+    public TestRLG testRLG;
+
+    //Use this only if we want to kick out all players when the master client leaves.
     public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
     {
+        RoomInfo room = PhotonNetwork.CurrentRoom;
+        testRLG.RemoveRoom(room);
+
         PhotonNetwork.LeaveRoom();
     }
 

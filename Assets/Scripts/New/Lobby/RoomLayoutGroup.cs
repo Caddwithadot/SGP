@@ -7,7 +7,10 @@ public class RoomLayoutGroup : MonoBehaviourPunCallbacks, ILobbyCallbacks
 {
     [SerializeField]
     private GameObject _roomListingPrefab;
-    private GameObject RoomListingPrefab => _roomListingPrefab;
+    private GameObject RoomListingPrefab
+    {
+        get { return _roomListingPrefab; }
+    }
 
     private List<RoomListing> _roomListingButtons = new List<RoomListing>();
     private List<RoomListing> RoomListingButtons
@@ -15,9 +18,9 @@ public class RoomLayoutGroup : MonoBehaviourPunCallbacks, ILobbyCallbacks
         get { return _roomListingButtons; }
     }
 
-    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    public override void OnRoomListUpdate(List<RoomInfo> rooms)
     {
-        foreach(RoomInfo room in roomList)
+        foreach(RoomInfo room in rooms)
         {
             RoomReceived(room);
         }

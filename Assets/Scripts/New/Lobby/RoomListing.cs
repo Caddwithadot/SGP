@@ -11,7 +11,15 @@ public class RoomListing : MonoBehaviour
         get { return _roomNameText; }
     }
 
+    [SerializeField]
+    private TMP_Text _roomPlayerCount;
+    private TMP_Text RoomCountText
+    {
+        get { return _roomPlayerCount; }
+    }
+
     public string RoomName { get; private set; }
+    public string RoomCount { get; private set; }
 
     public bool Updated { get; set; }
 
@@ -39,5 +47,11 @@ public class RoomListing : MonoBehaviour
     {
         RoomName = text;
         RoomNameText.text = RoomName;
+    }
+
+    public void SetRoomCountText(int text)
+    {
+        RoomCount = text.ToString();
+        RoomCountText.text = RoomCount;
     }
 }

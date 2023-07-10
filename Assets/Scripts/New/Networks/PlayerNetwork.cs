@@ -12,6 +12,7 @@ public class PlayerNetwork : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
         photonView = GetComponent<PhotonView>();
 
         SceneManager.sceneLoaded += OnSceneFinishedLoading;
@@ -19,8 +20,7 @@ public class PlayerNetwork : MonoBehaviour
 
     private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        // If commented, AutomaticallySync in PlayerNetwork.cs should be TRUE
-
+        /*
         if (scene.name == "Game")
         {
             if (PhotonNetwork.IsMasterClient)
@@ -32,6 +32,7 @@ public class PlayerNetwork : MonoBehaviour
                 NonMasterLoadedGame();
             }
         }
+        */
     }
 
     private void MasterLoadedGame()

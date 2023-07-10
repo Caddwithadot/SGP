@@ -18,7 +18,7 @@ public class CreateRoom : MonoBehaviourPunCallbacks
 
     public void OnClick_CreateRoom()
     {
-        RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = 4 };
+        RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = 10 };
 
         if (PhotonNetwork.CreateRoom(RoomName.text, roomOptions, TypedLobby.Default))
         {
@@ -30,7 +30,6 @@ public class CreateRoom : MonoBehaviourPunCallbacks
             print("create room failed to send");
         }
     }
-
 
     public override void OnCreatedRoom()
     {
