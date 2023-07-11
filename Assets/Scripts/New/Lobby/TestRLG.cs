@@ -1,6 +1,7 @@
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TestRLG : MonoBehaviourPunCallbacks, ILobbyCallbacks
@@ -18,12 +19,29 @@ public class TestRLG : MonoBehaviourPunCallbacks, ILobbyCallbacks
         get { return _roomListingButtons; }
     }
 
+    private List<RoomInfo> roomInfoList = new List<RoomInfo>();
+
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log(".");
+
+            RemoveInvisibleAndClosedRooms();
+        }
+    }
+
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         foreach (RoomInfo room in roomList)
         {
             RoomReceived(room);
         }
+
+        ///////
+        roomInfoList = roomList;
+        RemoveInvisibleAndClosedRooms();
     }
 
     private void RoomReceived(RoomInfo room)
@@ -76,6 +94,31 @@ public class TestRLG : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
             /////////
             roomListing.SetRoomCountText(room.PlayerCount);
+        }
+    }
+
+    /// <summary>
+    /// ///////////////
+    /// </summary>
+    public void RemoveInvisibleAndClosedRooms()
+    {
+        List<RoomListing> roomsToRemove = new List<RoomListing>();
+
+        foreach (RoomListing roomListing in RoomListingButtons)
+        {
+            bool isVisible = roomInfoList.Any(room => room.Name == roomListing.RoomName && room.IsVisible);
+            bool isOpen = roomInfoList.Any(room => room.Name == roomListing.RoomName && room.IsOpen);
+
+            if (!isVisible && !isOpen)
+            {
+                roomsToRemove.Add(roomListing);
+            }
+        }
+
+        foreach (RoomListing roomListing in roomsToRemove)
+        {
+            RoomListingButtons.Remove(roomListing);
+            Destroy(roomListing.gameObject);
         }
     }
 }
