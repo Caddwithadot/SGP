@@ -21,17 +21,6 @@ public class TestRLG : MonoBehaviourPunCallbacks, ILobbyCallbacks
 
     private List<RoomInfo> roomInfoList = new List<RoomInfo>();
 
-
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            Debug.Log(".");
-
-            RemoveInvisibleAndClosedRooms();
-        }
-    }
-
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         foreach (RoomInfo room in roomList)

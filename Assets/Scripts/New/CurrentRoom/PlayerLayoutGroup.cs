@@ -14,6 +14,8 @@ public class PlayerLayoutGroup : MonoBehaviourPunCallbacks
     public TestRLG testRLG;
     private Room prevRoom;
 
+    public LobbyNetwork lobbyNetwork;
+
     //Use this only if we want to kick out all players when the master client leaves.
     public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
     {
@@ -24,7 +26,7 @@ public class PlayerLayoutGroup : MonoBehaviourPunCallbacks
         prevRoom.IsOpen = false;
         prevRoom.IsVisible = false;
 
-
+        lobbyNetwork.amRefreshing = true;
         PhotonNetwork.LeaveRoom();
     }
 
@@ -95,6 +97,7 @@ public class PlayerLayoutGroup : MonoBehaviourPunCallbacks
 
     public void OnClickLeaveRoom()
     {
+        lobbyNetwork.amRefreshing = true;
         PhotonNetwork.LeaveRoom();
     }
 }
