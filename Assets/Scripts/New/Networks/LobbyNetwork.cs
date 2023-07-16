@@ -21,9 +21,6 @@ public class LobbyNetwork : MonoBehaviourPunCallbacks
     {
         print("Connected to master.");
 
-        //If comment on PlayerNetwork.cs and set this to TRUE
-        //PhotonNetwork.AutomaticallySyncScene = false;
-
         PhotonNetwork.JoinLobby();
     }
 

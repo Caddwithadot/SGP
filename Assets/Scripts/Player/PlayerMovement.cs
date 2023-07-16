@@ -64,11 +64,14 @@ public class PlayerMovement : MonoBehaviour
             Destroy(playerCam.gameObject);
             rb.isKinematic = true;
         }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
 
 
         playerScale = transform.localScale;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
 

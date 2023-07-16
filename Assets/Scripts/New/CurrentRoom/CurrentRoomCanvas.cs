@@ -20,4 +20,9 @@ public class CurrentRoomCanvas : MonoBehaviour
         PhotonNetwork.CurrentRoom.IsVisible = false;
         PhotonNetwork.LoadLevel("Game");
     }
+
+    public void OnClickStart()
+    {
+        PhotonNetwork.LoadLevel("Game");
+    }
 }
