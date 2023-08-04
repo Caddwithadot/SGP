@@ -3,6 +3,7 @@
 using System;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -70,8 +71,8 @@ public class PlayerMovement : MonoBehaviour
             Cursor.visible = false;
         }
 
-
         playerScale = transform.localScale;
+        
     }
 
 

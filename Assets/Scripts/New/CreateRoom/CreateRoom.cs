@@ -34,5 +34,7 @@ public class CreateRoom : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         print("Room created successfully");
+
+        PhotonNetwork.LoadLevel("Game");
     }
 }

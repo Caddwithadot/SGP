@@ -1,7 +1,6 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using UnityEngine;
 
 public class LobbyNetwork : MonoBehaviourPunCallbacks
@@ -20,6 +19,8 @@ public class LobbyNetwork : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         print("Connected to master.");
+
+        PhotonNetwork.AutomaticallySyncScene = false;
 
         PhotonNetwork.JoinLobby();
     }
@@ -40,9 +41,6 @@ public class LobbyNetwork : MonoBehaviourPunCallbacks
         }
     }
 
-    /// <summary>
-    /// /////////////
-    /// </summary>
     public void OnClickRefresh()
     {
         amRefreshing = false;

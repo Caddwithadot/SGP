@@ -11,7 +11,6 @@ public class PlayerLayoutGroup : MonoBehaviourPunCallbacks
 
     private List<PlayerListing> playerListings = new List<PlayerListing>();
 
-    public TestRLG testRLG;
     private Room prevRoom;
 
     public LobbyNetwork lobbyNetwork;
@@ -24,12 +23,15 @@ public class PlayerLayoutGroup : MonoBehaviourPunCallbacks
         prevRoom.IsVisible = false;
 
         lobbyNetwork.amRefreshing = true;
+        PhotonNetwork.IsMessageQueueRunning = true;
         PhotonNetwork.LeaveRoom();
     }
 
     public override void OnJoinedRoom()
     {
-        foreach(Transform child in transform)
+        PhotonNetwork.IsMessageQueueRunning = false;
+
+        foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }
@@ -95,6 +97,7 @@ public class PlayerLayoutGroup : MonoBehaviourPunCallbacks
     public void OnClickLeaveRoom()
     {
         lobbyNetwork.amRefreshing = true;
+        PhotonNetwork.IsMessageQueueRunning = true;
         PhotonNetwork.LeaveRoom();
     }
 }

@@ -6,6 +6,13 @@ using UnityEngine;
 
 public class LobbyCanvas : MonoBehaviour
 {
+    [SerializeField]
+    private RoomLayoutGroup _roomLayoutGroup;
+    private RoomLayoutGroup RoomLayoutGroup
+    {
+        get { return _roomLayoutGroup; }
+    }
+
     public TMP_InputField nameInput;
 
     public void OnClickJoinRoom(string roomName)
