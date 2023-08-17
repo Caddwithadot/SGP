@@ -3,6 +3,7 @@
 using System;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     //Assingables
     public Transform playerCam;
     public Transform orientation;
+
+    public Transform confirmPrompt;
 
     //Other
     private Rigidbody rb;
@@ -62,13 +65,12 @@ public class PlayerMovement : MonoBehaviour
         if (view.IsMine == false)
         {
             Destroy(playerCam.gameObject);
+            Destroy(confirmPrompt.gameObject);
             rb.isKinematic = true;
         }
 
-
         playerScale = transform.localScale;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        
     }
 
 

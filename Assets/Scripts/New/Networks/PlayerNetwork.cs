@@ -8,6 +8,7 @@ public class PlayerNetwork : MonoBehaviour
     public static PlayerNetwork Instance;
     private PhotonView photonView;
     private int PlayersInGame = 0;
+    public GameObject PlayerPrefab;
 
     private void Awake()
     {
@@ -20,9 +21,11 @@ public class PlayerNetwork : MonoBehaviour
 
     private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        /*
         if (scene.name == "Game")
         {
+            //photonView.RPC("RPC_CreatePlayer", RpcTarget.All);
+
+            /*
             if (PhotonNetwork.IsMasterClient)
             {
                 MasterLoadedGame();
@@ -31,8 +34,8 @@ public class PlayerNetwork : MonoBehaviour
             {
                 NonMasterLoadedGame();
             }
+            */
         }
-        */
     }
 
     private void MasterLoadedGame()
@@ -59,6 +62,17 @@ public class PlayerNetwork : MonoBehaviour
         if(PlayersInGame == PhotonNetwork.PlayerList.Length)
         {
             print("All players in the game scene.");
+
+            photonView.RPC("RPC_CreatePlayer", RpcTarget.All);
         }
+    }
+
+    [PunRPC]
+    private void RPC_CreatePlayer()
+    {
+        Debug.Log("Spawning player object");
+        Vector3 spawnPoint = new Vector3(0, 3.15f, 0);
+        PhotonNetwork.Instantiate(PlayerPrefab.name, spawnPoint, Quaternion.identity);
+
     }
 }

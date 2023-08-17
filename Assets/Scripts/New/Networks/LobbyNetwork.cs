@@ -1,7 +1,6 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using UnityEngine;
 
 public class LobbyNetwork : MonoBehaviourPunCallbacks
@@ -21,8 +20,7 @@ public class LobbyNetwork : MonoBehaviourPunCallbacks
     {
         print("Connected to master.");
 
-        //If comment on PlayerNetwork.cs and set this to TRUE
-        //PhotonNetwork.AutomaticallySyncScene = false;
+        PhotonNetwork.AutomaticallySyncScene = false;
 
         PhotonNetwork.JoinLobby();
     }
@@ -43,9 +41,6 @@ public class LobbyNetwork : MonoBehaviourPunCallbacks
         }
     }
 
-    /// <summary>
-    /// /////////////
-    /// </summary>
     public void OnClickRefresh()
     {
         amRefreshing = false;
