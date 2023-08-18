@@ -24,11 +24,11 @@ public class InputSystem : MonoBehaviour
         Debug.DrawRay(transform.position, Vector3.down * 10, Color.red);
 
         float height_above_ground = hit.distance;
-        //Debug.Log(height_above_ground);
+        Debug.Log(height_above_ground);
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (height_above_ground <= 1.00001f)
+            if (height_above_ground <= 1.0001f)
             {
                 grounded = true;
             }
