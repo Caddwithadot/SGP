@@ -1,108 +1,69 @@
-using Photon.Chat;
-using Photon.Pun;
-using Photon.Pun.Demo.PunBasics;
-using Photon.Realtime;
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Photon.Pun;
+using Photon.Chat;
+using Unity.VisualScripting;
+using System.Collections;
+using Photon.Realtime;
 
 public class PlayerManager : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private string kickedPlayerNickname;
+    public GameObject PlayerPrefab;
+    public Transform ChatterParent;
+    private GameObject newGuy;
 
-    private void Start()
+    public void Awake()
     {
-        //PhotonNetwork.IsMessageQueueRunning = true;
+        PhotonNetwork.IsMessageQueueRunning = true;
     }
 
-    private void Update()
+    public void Start()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        //clear chatterList on start
+        if (PhotonNetwork.IsMasterClient)
         {
-            int playerID = GameObject.Find(kickedPlayerNickname).GetComponent<PhotonView>().ViewID;
-
-            GetComponent<PhotonView>().RPC("Kick", RpcTarget.Others, new object[] { playerID });
-        }
-        /*
-        if (Variables.Object(this).Get<int>("activateConfirmFor") > 0)
-        {
-            int playerID = Variables.Object(this).Get<int>("activateConfirmFor");
-
-            GetComponent<PhotonView>().RPC("ConfirmPrompt", RpcTarget.All, new object[] { playerID });
+            AotList emptyList = new AotList();
+            Variables.Application.Set("chatterList", emptyList);
+            Variables.Application.Set("playerList", emptyList);
         }
 
-        if (Variables.Object(this).Get<int>("activateDenyFor") > 0)
+        if (PhotonNetwork.IsConnectedAndReady)
         {
-            int playerID = Variables.Object(this).Get<int>("activateDenyFor");
+            Vector3 spawnPoint = new Vector3(0, -10, 0);
+            newGuy = PhotonNetwork.Instantiate(PlayerPrefab.name, spawnPoint, Quaternion.identity);
 
-            GetComponent<PhotonView>().RPC("Deny", RpcTarget.Others, new object[] { playerID });
-        }
-        */
-    }
-
-    [PunRPC]
-    private void ConfirmPrompt(int playerViewID)
-    {
-        PhotonView playerView = PhotonView.Find(playerViewID);
-
-        if (playerView.IsMine)
-        {
-            Debug.Log("Confirm: " + playerView);
-            playerView.gameObject.transform.Find("_Confirm").gameObject.transform.Find("ConfirmPrompt").gameObject.SetActive(true);
-
-            Variables.Object(playerView.gameObject).Set("currentlyConfirming", true);
+            StartCoroutine(UpdateAndCheck());
         }
     }
 
-    [PunRPC]
-    private void Deny(int playerViewID)
+    IEnumerator UpdateAndCheck()
     {
-        PhotonView playerView = PhotonView.Find(playerViewID);
+        yield return new WaitForSeconds(0.1f);
+        
+        //Adds the player into the player list when they spawn in
+        AotList playerList = Variables.Application.Get<AotList>("playerList");
+        playerList.Add(newGuy.name);
+        Variables.Application.Set("playerList", playerList);
 
-        if (playerView.IsMine)
+        //Checks if the player that gets instantiated has an existing chatter body
+        AotList chatterList = Variables.Application.Get<AotList>("chatterList");
+        if (chatterList.Contains(newGuy.name))
         {
-            PhotonNetwork.Destroy(playerView.gameObject);
-
-            SceneManager.LoadScene("Lobby 1");
-
-        }
-    }
-
-    [PunRPC]
-    private void Kick(int playerViewID)
-    {
-        PhotonView playerView = PhotonView.Find(playerViewID);
-
-        if (playerView.IsMine)
-        {
-            Debug.Log($"Player {kickedPlayerNickname} has been kicked from the room!");
-
-            PhotonNetwork.Destroy(playerView.gameObject);
-
-            SceneManager.LoadScene("Kicked");
-        }
-    }
-
-    public override void OnPlayerLeftRoom(Player otherPlayer)
-    {
-        int photonViewID = GetPhotonViewID(otherPlayer);
-        CustomEvent.Trigger(this.gameObject, "PlayerLeft", otherPlayer.NickName, photonViewID);
-    }
-
-    private int GetPhotonViewID(Player player)
-    {
-        int photonViewID = -1;
-
-        foreach (PhotonView photonView in PhotonNetwork.PhotonViewCollection)
-        {
-            if (photonView.Owner == player)
+            Transform chatter = ChatterParent.Find(newGuy.name);
+            Debug.Log("Chatter: " + chatter);
+            if(chatter != null)
             {
-                photonViewID = photonView.ViewID;
-                break;
+                newGuy.transform.position = chatter.position;
             }
         }
+        else
+        {
+            newGuy.transform.position = new Vector3(0, 5, 0);
+        }
+    }
 
-        return photonViewID;
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        PhotonNetwork.Disconnect();
+        PhotonNetwork.LoadLevel("1");
     }
 }

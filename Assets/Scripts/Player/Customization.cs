@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.VisualScripting;
-using Photon.Chat;
-using System;
-using System.Linq;
 
 public class Customization : MonoBehaviour
 {

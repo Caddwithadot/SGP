@@ -959,6 +959,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1731200428}
   - component: {fileID: 1731200429}
+  - component: {fileID: 1731200430}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -994,6 +995,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerPrefab: {fileID: 4130517955969181245, guid: 24cf8e2c4fb450e4197f00facba4ad16, type: 3}
+  ChatterParent: {fileID: 39288217}
+--- !u!114 &1731200430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731200427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77a670451ea74e45af4149dc7e2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TwitchConnect: {fileID: 241573939}
+  ChatManager: {fileID: 1480955376}
+  ChatterManager: {fileID: 1646526184}
+  DataManager: {fileID: 2078189705}
 --- !u!1 &1856655144
 GameObject:
   m_ObjectHideFlags: 0

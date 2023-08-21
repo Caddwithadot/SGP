@@ -1,14 +1,16 @@
 using UnityEngine;
 using TMPro;
 using Photon.Pun;
+using Unity.VisualScripting;
 
 public class ConfirmCountdown : MonoBehaviour
 {
+    public GameObject player;
+
     public float countdownDuration = 10f;
     private TMP_Text countdownText;
 
     private float currentCountdown;
-
     private bool isKicking = false;
 
     private void Start()
@@ -42,6 +44,11 @@ public class ConfirmCountdown : MonoBehaviour
     private void KickPlayer()
     {
         isKicking = true;
+
+        AotList playerList = Variables.Application.Get<AotList>("playerList");
+        playerList.Remove(player.name);
+        Variables.Application.Set("playerList", playerList);
+
         PhotonNetwork.Disconnect();
         PhotonNetwork.LoadLevel("1");
     }
