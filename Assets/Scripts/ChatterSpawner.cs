@@ -1,16 +1,18 @@
-using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Realtime;
 using Unity.VisualScripting;
 using System;
 
 public class ChatterSpawner : MonoBehaviour
 {
-    private GameObject chatManager;
+    public Dictionary<string, Chatter> chatterDictionary = new Dictionary<string, Chatter>();
+
+    private ChatManager chatManager;
+    private ChatterManager chatterManager;
+
     public Transform chatterParent;
-    public GameObject chatter;
+    public GameObject chatterPrefab;
     public Transform startPos;
 
     public int numberOfRows;
@@ -27,23 +29,24 @@ public class ChatterSpawner : MonoBehaviour
 
     private void Awake()
     {
-        chatManager = GameObject.FindGameObjectWithTag("ChatManager");
+        chatManager = FindObjectOfType<ChatManager>();
+        chatterManager = FindObjectOfType<ChatterManager>();
     }
 
     void Update()
     {
-        if (Variables.Object(chatManager).Get<string>("newGuy") != null || Input.GetKeyDown(KeyCode.E))
+        if (chatManager.newGuy != null)
         {
-            InstantiateNextChatter(Variables.Object(chatManager).Get<string>("newGuy"));
+            InstantiateNextChatter(chatManager.newGuy);
 
-            Variables.Object(chatManager).Set("newGuy", null);
+            chatManager.newGuy = null;
         }
     }
 
     private void InstantiateNextChatter(string chatterName)
     {
-        var seatList = Variables.Object(this).Get("seatList") as IList<int>;
-        var destroyedPosList = Variables.Object(this).Get("destroyedPositionList") as IList<Vector3>;
+        List<int> seatList = chatterManager.seatList;
+        List<Vector3> posList = chatterManager.positionList;
 
         if (seatList.Count > 0)
         {
@@ -58,15 +61,17 @@ public class ChatterSpawner : MonoBehaviour
                     smallestIndex = i;
                 }
             }
-            Vector3 startPos = destroyedPosList[smallestIndex];
+            Vector3 startPos = posList[smallestIndex];
             Quaternion rotation = Quaternion.Euler(0, 180, 0);
-            GameObject chatterAvatar = PhotonNetwork.Instantiate(chatter.name, startPos, rotation);
+
+            GameObject chatterAvatar = Instantiate(chatterPrefab, startPos, rotation);
             chatterAvatar.transform.SetParent(chatterParent);
             chatterAvatar.name = chatterName;
-            Variables.Object(chatterAvatar).Set("SeatNum", smallest);
+
+            chatterAvatar.GetComponent<Chatter>().seatNum = smallest;
 
             seatList.RemoveAt(smallestIndex);
-            destroyedPosList.RemoveAt(smallestIndex);
+            posList.RemoveAt(smallestIndex);
         }
         else
         {
@@ -77,10 +82,12 @@ public class ChatterSpawner : MonoBehaviour
 
                 Vector3 startingPos = new Vector3(startPos.position.x + currentCol * spacing + xOffset, startPos.position.y + rowStep, startPos.position.z + currentRow * spacing);
                 Quaternion rotation = Quaternion.Euler(0, 180, 0);
-                GameObject chatterAvatar = PhotonNetwork.Instantiate(chatter.name, startingPos, rotation);
+
+                GameObject chatterAvatar = Instantiate(chatterPrefab, startingPos, rotation);
                 chatterAvatar.transform.SetParent(chatterParent);
                 chatterAvatar.name = chatterName;
-                Variables.Object(chatterAvatar).Set("SeatNum", seatNum);
+
+                chatterAvatar.GetComponent<Chatter>().seatNum = seatNum;
                 seatNum++;
 
                 currentCol++;
@@ -90,6 +97,26 @@ public class ChatterSpawner : MonoBehaviour
                     currentRow++;
                 }
             }
+        }
+    }
+
+    public Chatter CreateChatterObject(string chatter)
+    {
+        // Instantiate a new Chatter GameObject dynamically
+        GameObject chatterObject = Instantiate(chatterPrefab);
+        chatterObject.name = chatter;
+
+        Chatter chatterComponent = chatterObject.GetComponent<Chatter>();
+
+        return chatterComponent;
+    }
+
+    public void DestroyChatter(string chatter)
+    {
+        if (chatterDictionary.ContainsKey(chatter))
+        {
+            chatterDictionary.Remove(chatter);
+            Destroy(GameObject.Find(chatter));
         }
     }
 }

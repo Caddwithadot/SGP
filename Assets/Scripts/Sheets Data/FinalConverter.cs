@@ -5,48 +5,42 @@ using UnityEngine;
 public class FinalConverter : MonoBehaviour
 {
     public int maxNum;
+    private int lastRow;
 
     private SheetWriter sheetWriter;
     private SheetReader sheetReader;
     private SheetData sheetData;
-    private int lastRow;
 
-    private GameObject chatManager;
-    private List<string> nameList;
-    private List<string> colorList;
+    private ChatManager chatManager;
+
+    public List<string> nameList = new List<string>();
+    public List<string> colorList = new List<string>();
+
+    public string nameOfChanger;
+    public string colorChange;
 
     private void Awake()
     {
-        // Find the ChatManager GameObject
-        chatManager = GameObject.FindGameObjectWithTag("ChatManager");
-
-        // Initialize lists
-        nameList = new List<string>();
-        colorList = new List<string>();
+        chatManager = FindObjectOfType<ChatManager>();
     }
 
     public void Start()
     {
-        // Create instances of SheetWriter and SheetReader
         sheetWriter = new SheetWriter();
         sheetReader = new SheetReader();
 
-        // Get sheet data and last row index
         sheetData = sheetReader.GetSheetData("Sheet1!A2:B" + maxNum);
         lastRow = sheetReader.GetLastRow();
 
         IList<IList<object>> values = sheetData.values;
 
-        // Read names and colors from the sheet data
         foreach (var row in values)
         {
             if (row.Count > 0)
             {
-                // Read names
                 string name = row[0].ToString();
                 nameList.Add(name);
 
-                // Read colors
                 string color = row[1].ToString();
                 colorList.Add(color);
             }
@@ -55,56 +49,73 @@ public class FinalConverter : MonoBehaviour
 
     void Update()
     {
-        // New chatter spawned
-        if (Variables.Object(chatManager).Get<string>("newGuy1") != null)
+        if (chatManager.newGuy1 != null)
         {
-            string name = Variables.Object(chatManager).Get<string>("newGuy1");
+            string name = chatManager.newGuy1;
 
-            // Check the name of the new person
             CheckName(name);
 
-            Variables.Object(chatManager).Set("newGuy1", null);
+            chatManager.newGuy1 = null;
         }
 
-        // Chatter has changed something
-        if (Variables.Object(this.gameObject).Get<string>("name") != null)
+        if (nameOfChanger != null)
         {
-            string name = Variables.Object(this.gameObject).Get<string>("name");
+            string name = nameOfChanger;
 
-            // The chatter's color has been changed
-            if (Variables.Object(this.gameObject).Get<string>("colorChange") != null)
+            if (colorChange != null)
             {
-                string color = Variables.Object(this.gameObject).Get<string>("colorChange");
+                string color = colorChange;
 
                 UpdateColor(name, color);
 
-                Variables.Object(this.gameObject).Set("colorChange", null);
+                colorChange = null;
             }
 
-            Variables.Object(this.gameObject).Set("name", null);
+            nameOfChanger = null;
         }
 
+        /* need to implement some way to automatically do this when closing the application
         if (Input.GetKeyDown(KeyCode.F))
         {
             WriteShit(nameList, colorList);
         }
+        */
     }
 
     void CheckName(string name)
     {
-        // When a new person joins and is not written down
         if (!nameList.Contains(name))
         {
-            // Add them to the list if the name is not written down
-            nameList.Add(name);
-            colorList.Add(Variables.Object(GameObject.Find(name)).Get<string>("colorNum"));
+            GameObject foundObject = GameObject.Find(name);
+
+            if (foundObject != null)
+            {
+                Chatter chatterComponent = foundObject.GetComponent<Chatter>();
+                if (chatterComponent != null)
+                {
+                    nameList.Add(name);
+                    colorList.Add(chatterComponent.colorNum.ToString());
+                }
+            }
         }
         else
         {
-            // Find the color for the written person that joined
-            string color = colorList[nameList.IndexOf(name)];
-            Variables.Object(GameObject.Find(name)).Set("colorNum", color);
-            Variables.Object(GameObject.Find(name)).Set("start", true);
+            int index = nameList.IndexOf(name);
+
+            if (index != -1)
+            {
+                string color = colorList[index];
+                GameObject foundObject = GameObject.Find(name);
+
+                if (foundObject != null)
+                {
+                    Chatter chatterComponent = foundObject.GetComponent<Chatter>();
+                    if (chatterComponent != null)
+                    {
+                        chatterComponent.colorNum = int.Parse(color);
+                    }
+                }
+            }
         }
     }
 
@@ -112,7 +123,10 @@ public class FinalConverter : MonoBehaviour
     {
         int index = nameList.IndexOf(name);
 
-        colorList[index] = color;
+        if (index != -1)
+        {
+            colorList[index] = color;
+        }
     }
 
     void WriteShit(List<string> names, List<string> colors)
@@ -120,7 +134,6 @@ public class FinalConverter : MonoBehaviour
         var writeNameValues = new List<IList<object>>();
         var writeColorValues = new List<IList<object>>();
 
-        // Do names
         foreach (string name in names)
         {
             var nameRow = new List<object>();
@@ -128,7 +141,6 @@ public class FinalConverter : MonoBehaviour
             writeNameValues.Add(nameRow);
         }
 
-        // Do colors
         foreach (string color in colors)
         {
             var colorRow = new List<object>();

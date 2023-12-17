@@ -11,13 +11,13 @@ public class TwitchConnect : MonoBehaviour
     StreamReader Reader;
     StreamWriter Writer;
 
-    private GameObject ChatManager;
+    private ChatManager chatManager;
 
     const string URL = "irc.chat.twitch.tv";
     const int PORT = 6667;
 
     string User = "sgp_alt";
-    string Channel = "possiblycadd";
+    string Channel = "xqc";
 
     [SerializeField]
     private string OAuth;
@@ -26,7 +26,7 @@ public class TwitchConnect : MonoBehaviour
 
     private void Awake()
     {
-        ChatManager = GameObject.FindGameObjectWithTag("ChatManager");
+        chatManager = FindObjectOfType<ChatManager>();
         ConnectToTwitch();
     }
 
@@ -73,7 +73,8 @@ public class TwitchConnect : MonoBehaviour
                 splitPoint = message.IndexOf(":", 1);
                 string msg = message.Substring(splitPoint + 1);
 
-                CustomEvent.Trigger(ChatManager, "NewMessage", chatter, msg);
+                //sends the information to the chatManager
+                chatManager.NewMessage(chatter, msg);
             }
 
             if(message.Contains("PING :tmi.twitch.tv"))
