@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.VisualScripting;
 using System;
+using Photon.Chat;
 
 public class ChatterSpawner : MonoBehaviour
 {
     public Dictionary<string, Chatter> chatterDictionary = new Dictionary<string, Chatter>();
 
-    private ChatManager chatManager;
     private ChatterManager chatterManager;
 
     public Transform chatterParent;
@@ -27,23 +27,16 @@ public class ChatterSpawner : MonoBehaviour
 
     private int seatNum;
 
+    //
+    public Vector3 startingPos;
+    public Quaternion startingRot;
+
     private void Awake()
     {
-        chatManager = FindObjectOfType<ChatManager>();
         chatterManager = FindObjectOfType<ChatterManager>();
     }
 
-    void Update()
-    {
-        if (chatManager.newGuy != null)
-        {
-            InstantiateNextChatter(chatManager.newGuy);
-
-            chatManager.newGuy = null;
-        }
-    }
-
-    private void InstantiateNextChatter(string chatterName)
+    public void InstantiateNextChatter(string chatterName)
     {
         List<int> seatList = chatterManager.seatList;
         List<Vector3> posList = chatterManager.positionList;
@@ -61,15 +54,16 @@ public class ChatterSpawner : MonoBehaviour
                     smallestIndex = i;
                 }
             }
-            Vector3 startPos = posList[smallestIndex];
-            Quaternion rotation = Quaternion.Euler(0, 180, 0);
 
-            GameObject chatterAvatar = Instantiate(chatterPrefab, startPos, rotation);
-            chatterAvatar.transform.SetParent(chatterParent);
-            chatterAvatar.name = chatterName;
+            //sets the position and rotation of the chatter
+            startingPos = posList[smallestIndex];
+            startingRot = Quaternion.Euler(0, 180, 0);
 
-            chatterAvatar.GetComponent<Chatter>().seatNum = smallest;
+            //creates a new chatter and assigns it's seat
+            Chatter newChatter = CreateChatterObject(chatterName);
+            newChatter.seatNum = smallest;
 
+            //removes occupied seat from list
             seatList.RemoveAt(smallestIndex);
             posList.RemoveAt(smallestIndex);
         }
@@ -77,19 +71,20 @@ public class ChatterSpawner : MonoBehaviour
         {
             if (currentRow < numberOfRows && currentCol < objectsPerRow)
             {
+                //offsets based on stadium positions
                 float xOffset = (currentRow % 2 == 0) ? 0f : rowOffset;
                 float rowStep = startingY + (currentRow * yOffset);
 
-                Vector3 startingPos = new Vector3(startPos.position.x + currentCol * spacing + xOffset, startPos.position.y + rowStep, startPos.position.z + currentRow * spacing);
-                Quaternion rotation = Quaternion.Euler(0, 180, 0);
+                //sets the starting position and rotation
+                startingPos = new Vector3(startPos.position.x + currentCol * spacing + xOffset, startPos.position.y + rowStep, startPos.position.z + currentRow * spacing);
+                startingRot = Quaternion.Euler(0, 180, 0);
 
-                GameObject chatterAvatar = Instantiate(chatterPrefab, startingPos, rotation);
-                chatterAvatar.transform.SetParent(chatterParent);
-                chatterAvatar.name = chatterName;
-
-                chatterAvatar.GetComponent<Chatter>().seatNum = seatNum;
+                //creates a new chatter and assigns it's seat
+                Chatter newChatter = CreateChatterObject(chatterName);
+                newChatter.seatNum = seatNum;
                 seatNum++;
 
+                //keeps track of the columns of the stadium that are filled
                 currentCol++;
                 if (currentCol >= objectsPerRow)
                 {
@@ -103,10 +98,14 @@ public class ChatterSpawner : MonoBehaviour
     public Chatter CreateChatterObject(string chatter)
     {
         // Instantiate a new Chatter GameObject dynamically
-        GameObject chatterObject = Instantiate(chatterPrefab);
+        GameObject chatterObject = Instantiate(chatterPrefab, startingPos, startingRot, chatterParent);
         chatterObject.name = chatter;
 
+        //gets the chatters script component
         Chatter chatterComponent = chatterObject.GetComponent<Chatter>();
+
+        //adds the chatter to the dictionary
+        chatterDictionary[chatter] = chatterComponent;
 
         return chatterComponent;
     }

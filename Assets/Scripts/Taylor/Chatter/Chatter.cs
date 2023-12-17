@@ -12,9 +12,11 @@ using TMPro;
 
 public class Chatter : MonoBehaviour
 {
-    public TextMeshProUGUI chatterName;
+    private ChatterSpawner chatterSpawner;
     private ChatterManager chatterManager;
     private ChatManager chatManager;
+
+    public TextMeshProUGUI chatterName;
 
     public int seatNum;
 
@@ -28,11 +30,12 @@ public class Chatter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        chatterSpawner = FindObjectOfType<ChatterSpawner>();
         chatterManager = FindObjectOfType<ChatterManager>();
         chatManager = FindObjectOfType<ChatManager>();
 
         //sets the display name as the chatters twitch name
-        chatterName.text = this.name;
+        chatterName.text = name;
 
         jumpAnim = transform.GetChild(0).GetComponent<Animator>();
 
@@ -54,7 +57,7 @@ public class Chatter : MonoBehaviour
 
                 //remove this object from the playerlist application variable by getting this object's name
 
-                Destroy(gameObject);
+                chatterSpawner.DestroyChatter(name);
             }
         }
     }
