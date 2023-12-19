@@ -12,14 +12,14 @@ using UnityEngine;
 public class ChatManager : MonoBehaviour
 {
     private ChatterSpawner chatterSpawner;
+    private FinalConverter finalConverter;
 
     public List<string> colorCommands = new List<string>();
-
-    public string newGuy1;
 
     private void Start()
     {
         chatterSpawner = FindObjectOfType<ChatterSpawner>();
+        finalConverter = FindObjectOfType<FinalConverter>();
     }
 
     public void NewMessage(string chatter, string message)
@@ -34,9 +34,7 @@ public class ChatManager : MonoBehaviour
         {
             //adds the new chatter to the list
             chatterSpawner.InstantiateNextChatter(chatter);
-
-            //ignore this, gonna look into why I have it here later
-            newGuy1 = chatter;
+            finalConverter.CheckName(chatter);
         }
     }
 }
