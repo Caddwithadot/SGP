@@ -24,7 +24,7 @@ public class InputSystem : MonoBehaviour
         Debug.DrawRay(transform.position, Vector3.down * 10, Color.red);
 
         float height_above_ground = hit.distance;
-        Debug.Log(height_above_ground);
+        //Debug.Log(height_above_ground);
 
         if (Physics.Raycast(ray, out hit))
         {

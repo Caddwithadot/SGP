@@ -1,3 +1,10 @@
+/*******************************************************************************
+Author: Jared
+State: Complete/Functional
+Description:
+ Clamps the player model's eyes between two angles.
+*******************************************************************************/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,18 +18,11 @@ public class RotationFollower : MonoBehaviour
     void Update()
     {
         Vector3 currentRotation = Target.transform.eulerAngles;
+        //Debug.Log(currentRotation.x);
 
-        if(currentRotation.x >= minRotation || currentRotation.x <= maxRotation || currentRotation.x == 0)
+        if (currentRotation.x >= minRotation || currentRotation.x <= maxRotation)
         {
             transform.rotation = Target.rotation;
-        }
-        else if(currentRotation.x < minRotation && currentRotation.x >= 270)
-        {
-            transform.rotation = Quaternion.Euler(minRotation, currentRotation.y, currentRotation.z);
-        }
-        else if(currentRotation.x > maxRotation && currentRotation.x <= 90)
-        {
-            transform.rotation = Quaternion.Euler(maxRotation, currentRotation.y , currentRotation.z);
         }
     }
 }

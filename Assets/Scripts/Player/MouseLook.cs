@@ -1,3 +1,10 @@
+/*******************************************************************************
+Author: Jared
+State: Complete/Functional
+Description:
+ Allows the player to look around using the mouse.
+*******************************************************************************/
+
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -12,7 +19,7 @@ public class MouseLook : MonoBehaviour
 
     void Start()
     {
-        //Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
         xRotation = 0f;
         transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
     }
