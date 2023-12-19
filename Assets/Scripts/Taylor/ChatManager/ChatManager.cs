@@ -1,3 +1,10 @@
+/*******************************************************************************
+Author: Taylor
+State: Complete
+Description:
+Handles all messages coming from chat.
+*******************************************************************************/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,14 +12,14 @@ using UnityEngine;
 public class ChatManager : MonoBehaviour
 {
     private ChatterSpawner chatterSpawner;
-
-    public string newGuy1;
+    private FinalConverter finalConverter;
 
     public List<string> colorCommands = new List<string>();
 
     private void Start()
     {
         chatterSpawner = FindObjectOfType<ChatterSpawner>();
+        finalConverter = FindObjectOfType<FinalConverter>();
     }
 
     public void NewMessage(string chatter, string message)
@@ -27,8 +34,7 @@ public class ChatManager : MonoBehaviour
         {
             //adds the new chatter to the list
             chatterSpawner.InstantiateNextChatter(chatter);
-
-            newGuy1 = chatter;
+            finalConverter.CheckName(chatter);
         }
     }
 }

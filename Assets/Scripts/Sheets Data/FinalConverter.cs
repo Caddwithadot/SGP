@@ -4,25 +4,19 @@ using UnityEngine;
 
 public class FinalConverter : MonoBehaviour
 {
-    public int maxNum;
+    public int maxNum = 1000;
     private int lastRow;
 
     private SheetWriter sheetWriter;
     private SheetReader sheetReader;
     private SheetData sheetData;
 
-    private ChatManager chatManager;
-
     public List<string> nameList = new List<string>();
     public List<string> colorList = new List<string>();
 
-    public string nameOfChanger;
-    public string colorChange;
+    private string nameOfChanger;
+    private string colorChange;
 
-    private void Awake()
-    {
-        chatManager = FindObjectOfType<ChatManager>();
-    }
 
     public void Start()
     {
@@ -49,15 +43,6 @@ public class FinalConverter : MonoBehaviour
 
     void Update()
     {
-        if (chatManager.newGuy1 != null)
-        {
-            string name = chatManager.newGuy1;
-
-            CheckName(name);
-
-            chatManager.newGuy1 = null;
-        }
-
         if (nameOfChanger != null)
         {
             string name = nameOfChanger;
@@ -82,7 +67,7 @@ public class FinalConverter : MonoBehaviour
         */
     }
 
-    void CheckName(string name)
+    public void CheckName(string name)
     {
         if (!nameList.Contains(name))
         {
