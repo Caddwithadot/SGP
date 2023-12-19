@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Net.Sockets;
 using System.IO;
-using Unity.VisualScripting;
 
 public class TwitchConnect : MonoBehaviour
 {
@@ -17,7 +16,7 @@ public class TwitchConnect : MonoBehaviour
     const int PORT = 6667;
 
     string User = "sgp_alt";
-    string Channel = "jynxzi";
+    string Channel = "clix";
 
     [SerializeField]
     private string OAuth;

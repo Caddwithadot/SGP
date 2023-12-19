@@ -1,3 +1,10 @@
+/*******************************************************************************
+Author: Taylor
+State: Complete
+Description:
+Handles all messages coming from chat.
+*******************************************************************************/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +13,9 @@ public class ChatManager : MonoBehaviour
 {
     private ChatterSpawner chatterSpawner;
 
-    public string newGuy1;
-
     public List<string> colorCommands = new List<string>();
+
+    public string newGuy1;
 
     private void Start()
     {
@@ -28,6 +35,7 @@ public class ChatManager : MonoBehaviour
             //adds the new chatter to the list
             chatterSpawner.InstantiateNextChatter(chatter);
 
+            //ignore this, gonna look into why I have it here later
             newGuy1 = chatter;
         }
     }
