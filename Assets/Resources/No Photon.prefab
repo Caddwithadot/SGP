@@ -522,8 +522,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: WWWWWWWWWWWWWWWWWWWWWWWWW
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3fd68d69a8376cb41be26a16b8ee4645, type: 2}
+  m_sharedMaterial: {fileID: -3273694288202358457, guid: 3fd68d69a8376cb41be26a16b8ee4645, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
