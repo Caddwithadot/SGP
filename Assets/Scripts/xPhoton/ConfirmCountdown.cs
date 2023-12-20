@@ -1,3 +1,4 @@
+/*
 using UnityEngine;
 using TMPro;
 using Photon.Pun;
@@ -53,3 +54,4 @@ public class ConfirmCountdown : MonoBehaviour
         PhotonNetwork.LoadLevel("1");
     }
 }
+*/

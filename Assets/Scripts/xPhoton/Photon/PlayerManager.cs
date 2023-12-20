@@ -1,3 +1,4 @@
+/*
 using UnityEngine;
 using Photon.Pun;
 using Photon.Chat;
@@ -67,3 +68,4 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel("1");
     }
 }
+*/
