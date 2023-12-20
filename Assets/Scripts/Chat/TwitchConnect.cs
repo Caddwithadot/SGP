@@ -23,7 +23,7 @@ public class TwitchConnect : MonoBehaviour
     const int PORT = 6667;
 
     string User = "sgp_alt";
-    string Channel = "jynxzi";
+    public string Channel;
 
     [SerializeField]
     private string OAuth;

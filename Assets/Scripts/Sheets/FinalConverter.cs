@@ -1,6 +1,6 @@
 /*******************************************************************************
 Author: Taylor
-State: Working, need to optimize the lists for writing.
+State: Working, need to get an autosave set up.
 Description:
 Handles reading and writing to the spreadsheet.
 *******************************************************************************/
@@ -10,27 +10,30 @@ using UnityEngine;
 
 public class FinalConverter : MonoBehaviour
 {
-    public int maxNum = 1000;
-    private int lastRow;
-
     private SheetWriter sheetWriter;
     private SheetReader sheetReader;
     private SheetData sheetData;
+
+    private ChatterSpawner chatterSpawner;
+
+    public int maxNum = 1000;
 
     //every name, including ones that have already been written.
     public List<string> nameList = new List<string>();
     public List<string> colorList = new List<string>();
 
-    public void Start()
+    private void Awake()
     {
+        chatterSpawner = FindObjectOfType<ChatterSpawner>();
+
         sheetWriter = new SheetWriter();
         sheetReader = new SheetReader();
 
+        //gets all data from columns 'A' and 'B' in the SheetReader.cs
         sheetData = sheetReader.GetSheetData("Sheet1!A2:B" + maxNum);
-        lastRow = sheetReader.GetLastRow();
-
         IList<IList<object>> values = sheetData.values;
 
+        //goes through every row to add all pre-existing names and colors to the lists
         foreach (var row in values)
         {
             if (row.Count > 0)
@@ -46,7 +49,8 @@ public class FinalConverter : MonoBehaviour
 
     void Update()
     {
-        /* need to implement some way to automatically do this when closing the application
+        // need to implement some way to automatically do this before closing the game
+        /*
         if (Input.GetKeyDown(KeyCode.F))
         {
             WriteShit(nameList, colorList);
@@ -54,6 +58,7 @@ public class FinalConverter : MonoBehaviour
         */
     }
 
+    //updates the saved color in the list of the given chatter
     public void UpdateColor(string name, string color)
     {
         int index = nameList.IndexOf(name);
@@ -64,38 +69,38 @@ public class FinalConverter : MonoBehaviour
         }
     }
 
+    //new chatter has been instantiated
     public void CheckName(string name)
     {
+        //checks if this chatter has talked in a previous session
         if (!nameList.Contains(name))
         {
-            GameObject foundObject = GameObject.Find(name);
-
-            if (foundObject != null)
+            if (chatterSpawner.chatterDictionary.ContainsKey(name))
             {
-                Chatter chatterComponent = foundObject.GetComponent<Chatter>();
-                if (chatterComponent != null)
-                {
-                    nameList.Add(name);
-                    colorList.Add(chatterComponent.colorNum.ToString());
-                }
+                Chatter chatterComponent = chatterSpawner.chatterDictionary[name].GetComponent<Chatter>();
+
+                //adds the new chatter to get saved
+                nameList.Add(name);
+                colorList.Add(chatterComponent.colorNum.ToString());
             }
         }
         else
         {
+            //gets the index of the pre-existing chatter
             int index = nameList.IndexOf(name);
 
             if (index != -1)
             {
+                //gets the color they had previously saved
                 string color = colorList[index];
-                GameObject foundObject = GameObject.Find(name);
 
-                if (foundObject != null)
+                //checks again if the instantiated chatter exists
+                if (chatterSpawner.chatterDictionary.ContainsKey(name))
                 {
-                    Chatter chatterComponent = foundObject.GetComponent<Chatter>();
-                    if (chatterComponent != null)
-                    {
-                        chatterComponent.colorNum = int.Parse(color);
-                    }
+                    Chatter chatterComponent = chatterSpawner.chatterDictionary[name].GetComponent<Chatter>();
+
+                    //sets the instantiated chatter's color to their corresponding saved color as they spawn
+                    chatterComponent.colorNum = int.Parse(color);
                 }
             }
         }
@@ -106,6 +111,7 @@ public class FinalConverter : MonoBehaviour
         var writeNameValues = new List<IList<object>>();
         var writeColorValues = new List<IList<object>>();
 
+        //sets up name column for writing
         foreach (string name in names)
         {
             var nameRow = new List<object>();
@@ -113,6 +119,7 @@ public class FinalConverter : MonoBehaviour
             writeNameValues.Add(nameRow);
         }
 
+        //sets up color column for writing
         foreach (string color in colors)
         {
             var colorRow = new List<object>();
@@ -120,6 +127,7 @@ public class FinalConverter : MonoBehaviour
             writeColorValues.Add(colorRow);
         }
 
+        //saves all values by writing them in their designated columns
         sheetWriter.WriteData("Sheet1", "A2:A" + maxNum, writeNameValues);
         sheetWriter.WriteData("Sheet1", "B2:B" + maxNum, writeColorValues);
     }
