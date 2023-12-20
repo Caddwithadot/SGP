@@ -75,6 +75,7 @@ public class FinalConverter : MonoBehaviour
         //checks if this chatter has talked in a previous session
         if (!nameList.Contains(name))
         {
+            //chatter is new
             if (chatterSpawner.chatterDictionary.ContainsKey(name))
             {
                 Chatter chatterComponent = chatterSpawner.chatterDictionary[name].GetComponent<Chatter>();

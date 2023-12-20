@@ -29,7 +29,7 @@ public class ChatDisplayCanvas : MonoBehaviour
     {
         GameObject chatBox = Instantiate(ChatBoxPrefab, ChatBoxParent.transform);
 
-        TextMeshPro Text = chatBox.GetComponentInChildren<TextMeshPro>();
+        TextMeshProUGUI Text = chatBox.GetComponentInChildren<TextMeshProUGUI>();
 
         Text.text = (chatter + ": " + message);
         //Text.color = 
