@@ -15,11 +15,14 @@ public class ChatManager : MonoBehaviour
     private FinalConverter finalConverter;
 
     public List<string> colorCommands = new List<string>();
+    public List<ChatDisplayCanvas> chatDisplays = new List<ChatDisplayCanvas>();
 
     private void Start()
     {
         chatterSpawner = FindObjectOfType<ChatterSpawner>();
         finalConverter = FindObjectOfType<FinalConverter>();
+
+        UpdateChatDisplayList();
     }
 
     public void NewMessage(string chatter, string message)
@@ -36,5 +39,19 @@ public class ChatManager : MonoBehaviour
             chatterSpawner.InstantiateNextChatter(chatter);
             finalConverter.CheckName(chatter);
         }
+
+        foreach (ChatDisplayCanvas chatDisplay in chatDisplays)
+        {
+            chatDisplay.DisplayNewMessage(chatter, message);
+        }
+
+        UpdateChatDisplayList();
+    }
+
+    public void UpdateChatDisplayList()
+    {
+        chatDisplays.Clear();
+        ChatDisplayCanvas[] chatDisplayObjects = FindObjectsOfType<ChatDisplayCanvas>();
+        chatDisplays.AddRange(chatDisplayObjects);
     }
 }

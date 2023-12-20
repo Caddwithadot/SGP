@@ -1,3 +1,11 @@
+/*******************************************************************************
+Author: Jared
+State: Incomplete
+Description:
+ Player movement functions and ground check.
+ Ground check needs to be reworked to a collision counter.
+*******************************************************************************/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
