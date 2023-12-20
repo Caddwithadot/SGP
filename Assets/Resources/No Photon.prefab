@@ -103,7 +103,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chatterName: {fileID: 7260574982410820368}
   seatNum: 0
-  talkDuration: 60
+  talkDuration: 10
+  timer: 0
   colorNum: 0
 --- !u!114 &2644921875768701539
 MonoBehaviour:

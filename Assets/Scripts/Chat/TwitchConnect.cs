@@ -1,3 +1,10 @@
+/*******************************************************************************
+Author: Taylor
+State: Complete
+Description:
+Recieves all information from specified Twitch chat.
+*******************************************************************************/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +23,7 @@ public class TwitchConnect : MonoBehaviour
     const int PORT = 6667;
 
     string User = "sgp_alt";
-    string Channel = "clix";
+    string Channel = "xqc";
 
     [SerializeField]
     private string OAuth;

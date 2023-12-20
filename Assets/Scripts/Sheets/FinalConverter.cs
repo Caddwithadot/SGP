@@ -1,5 +1,11 @@
+/*******************************************************************************
+Author: Taylor
+State: Working, need to optimize the lists for writing.
+Description:
+Handles reading and writing to the spreadsheet.
+*******************************************************************************/
+
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class FinalConverter : MonoBehaviour
@@ -11,12 +17,9 @@ public class FinalConverter : MonoBehaviour
     private SheetReader sheetReader;
     private SheetData sheetData;
 
+    //every name, including ones that have already been written.
     public List<string> nameList = new List<string>();
     public List<string> colorList = new List<string>();
-
-    private string nameOfChanger;
-    private string colorChange;
-
 
     public void Start()
     {
@@ -43,28 +46,22 @@ public class FinalConverter : MonoBehaviour
 
     void Update()
     {
-        if (nameOfChanger != null)
-        {
-            string name = nameOfChanger;
-
-            if (colorChange != null)
-            {
-                string color = colorChange;
-
-                UpdateColor(name, color);
-
-                colorChange = null;
-            }
-
-            nameOfChanger = null;
-        }
-
         /* need to implement some way to automatically do this when closing the application
         if (Input.GetKeyDown(KeyCode.F))
         {
             WriteShit(nameList, colorList);
         }
         */
+    }
+
+    public void UpdateColor(string name, string color)
+    {
+        int index = nameList.IndexOf(name);
+
+        if (index != -1)
+        {
+            colorList[index] = color;
+        }
     }
 
     public void CheckName(string name)
@@ -101,16 +98,6 @@ public class FinalConverter : MonoBehaviour
                     }
                 }
             }
-        }
-    }
-
-    void UpdateColor(string name, string color)
-    {
-        int index = nameList.IndexOf(name);
-
-        if (index != -1)
-        {
-            colorList[index] = color;
         }
     }
 

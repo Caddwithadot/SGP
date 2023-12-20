@@ -1,9 +1,14 @@
+/*******************************************************************************
+Author: Taylor
+State: Working, will have to change when making a more official stadium.
+Description:
+Handles chatter instantiation
+*******************************************************************************/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.VisualScripting;
 using System;
-using Photon.Chat;
 
 public class ChatterSpawner : MonoBehaviour
 {
@@ -11,25 +16,26 @@ public class ChatterSpawner : MonoBehaviour
 
     private ChatterManager chatterManager;
 
-    public Transform chatterParent;
     public GameObject chatterPrefab;
+    public Transform chatterParent;
     public Transform startPos;
 
+    //variables for current stadium-style placement
     public int numberOfRows;
     public int objectsPerRow;
     public float spacing;
     public float startingY;
     public float rowOffset;
     public float yOffset;
-
     private int currentRow = 0;
     private int currentCol = 0;
 
-    private int seatNum;
+    //position and rotation for the chatter
+    private Vector3 chatterPos;
+    private Quaternion chatterRot;
 
-    //
-    public Vector3 startingPos;
-    public Quaternion startingRot;
+    //gives the chatter their seat number
+    private int seatNum;
 
     private void Awake()
     {
@@ -56,8 +62,8 @@ public class ChatterSpawner : MonoBehaviour
             }
 
             //sets the position and rotation of the chatter
-            startingPos = posList[smallestIndex];
-            startingRot = Quaternion.Euler(0, 180, 0);
+            chatterPos = posList[smallestIndex];
+            chatterRot = Quaternion.Euler(0, 180, 0);
 
             //creates a new chatter and assigns it's seat
             Chatter newChatter = CreateChatterObject(chatterName);
@@ -76,8 +82,8 @@ public class ChatterSpawner : MonoBehaviour
                 float rowStep = startingY + (currentRow * yOffset);
 
                 //sets the starting position and rotation
-                startingPos = new Vector3(startPos.position.x + currentCol * spacing + xOffset, startPos.position.y + rowStep, startPos.position.z + currentRow * spacing);
-                startingRot = Quaternion.Euler(0, 180, 0);
+                chatterPos = new Vector3(startPos.position.x + currentCol * spacing + xOffset, startPos.position.y + rowStep, startPos.position.z + currentRow * spacing);
+                chatterRot = Quaternion.Euler(0, 180, 0);
 
                 //creates a new chatter and assigns it's seat
                 Chatter newChatter = CreateChatterObject(chatterName);
@@ -98,7 +104,7 @@ public class ChatterSpawner : MonoBehaviour
     public Chatter CreateChatterObject(string chatter)
     {
         // Instantiate a new Chatter GameObject dynamically
-        GameObject chatterObject = Instantiate(chatterPrefab, startingPos, startingRot, chatterParent);
+        GameObject chatterObject = Instantiate(chatterPrefab, chatterPos, chatterRot, chatterParent);
         chatterObject.name = chatter;
 
         //gets the chatters script component

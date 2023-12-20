@@ -1,6 +1,6 @@
 /*******************************************************************************
 Author: Taylor
-State: Needs a second look after the playerList application variable is changed.
+State: Working
 Description:
 Handles the individual chatters seat and talk duration at the moment.
 *******************************************************************************/
@@ -21,7 +21,7 @@ public class Chatter : MonoBehaviour
     public int seatNum;
 
     public float talkDuration = 60f;
-    private float timer;
+    public float timer;
 
     public int colorNum;
 
@@ -49,14 +49,14 @@ public class Chatter : MonoBehaviour
         {
             timer -= Time.deltaTime;
 
+            //chatter no longer active
             if(timer <= 0)
             {
                 //adds this chatters order number and position to the list
                 chatterManager.seatList.Add(seatNum);
                 chatterManager.positionList.Add(transform.position);
 
-                //remove this object from the playerlist application variable by getting this object's name
-
+                //destroys chatter
                 chatterSpawner.DestroyChatter(name);
             }
         }
