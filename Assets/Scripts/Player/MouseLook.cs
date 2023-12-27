@@ -19,7 +19,7 @@ public class MouseLook : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
         xRotation = 0f;
         transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
     }

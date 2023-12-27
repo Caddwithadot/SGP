@@ -1,8 +1,8 @@
 /*******************************************************************************
 Author: Jared
-State: Complete/Functional
+State: In progress
 Description:
- Allows the player to look around using the mouse.
+ Displays messages in the chat canvas
 *******************************************************************************/
 
 using System.Collections;
