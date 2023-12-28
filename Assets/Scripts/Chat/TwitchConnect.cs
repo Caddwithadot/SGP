@@ -12,10 +12,6 @@ using System.Net.Sockets;
 using System.IO;
 using System;
 using UnityEngine.Networking;
-using UnityEditor.PackageManager;
-using UnityEngine.tvOS;
-using UnityEditor;
-using UnityEngine.UI;
 
 [System.Serializable]
 public class BTTVEmoteInfo
@@ -45,7 +41,6 @@ public class TwitchConnect : MonoBehaviour
     public GameObject emotePrefab;
     private HashSet<string> uniqueEmoteIDs = new HashSet<string>();
     public Transform emoteParent;
-
 
     private void Awake()
     {
@@ -146,9 +141,12 @@ public class TwitchConnect : MonoBehaviour
 
                         //global twitch
                         //StartCoroutine(GetTexture("https://static-cdn.jtvnw.net/emoticons/v2/" + emoteID + "/static" + "/light/3.0", emoteID));
+                        //StartCoroutine(GetTexture("https://static-cdn.jtvnw.net/emoticons/v1/" + emoteID + "/3.0", emoteID));
+
+
 
                         //global betterttv
-                        StartCoroutine(GetBTTVEmoteInfo("https://cdn.betterttv.net/emote/" + emoteID + "/3x", emoteID));
+                        //StartCoroutine(GetBTTVEmoteInfo("https://cdn.betterttv.net/emote/" + emoteID + "/3x", emoteID));
                     }
                 }
 
@@ -162,8 +160,8 @@ public class TwitchConnect : MonoBehaviour
         }
     }
 
-    //getting the emotes texture
-    IEnumerator GetTexture(string url, string ID)
+//getting the emotes texture
+IEnumerator GetTexture(string url, string ID)
     {
         // find the emote texture
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
@@ -173,8 +171,8 @@ public class TwitchConnect : MonoBehaviour
         Texture2D img = DownloadHandlerTexture.GetContent(www);
 
         //emote particle test
-        GameObject emotePart = Instantiate(emotePrefab, transform.position, transform.rotation);
-        emotePart.GetComponent<ParticleSystem>().GetComponent<Renderer>().material.mainTexture = img;
+        //GameObject emotePart = Instantiate(emotePrefab, transform.position, transform.rotation);
+        //emotePart.GetComponent<ParticleSystem>().GetComponent<Renderer>().material.mainTexture = img;
 
         //GameObject emotePart = Instantiate(emotePrefab, transform.position, transform.rotation, emoteParent);
         //emotePart.GetComponent<Image>().material.mainTexture = img;
@@ -183,60 +181,13 @@ public class TwitchConnect : MonoBehaviour
         //SaveTextureToFile(img, ID);
     }
 
-    // Fetch BetterTTV emote information
-    IEnumerator GetBTTVEmoteInfo(string url, string emoteID)
-    {
-        UnityWebRequest infoRequest = UnityWebRequest.Get(url);
-        yield return infoRequest.SendWebRequest();
-
-        if (infoRequest.isNetworkError || infoRequest.isHttpError)
-        {
-            Debug.LogError($"Error fetching BetterTTV emote information for {emoteID}: {infoRequest.error}");
-        }
-        else
-        {
-            BTTVEmoteInfo emoteInfo = JsonUtility.FromJson<BTTVEmoteInfo>(infoRequest.downloadHandler.text);
-
-            if (emoteInfo != null)
-            {
-                // Check if the BetterTTV emote is a GIF
-                if (emoteInfo.imageType == "gif")
-                {
-                    Debug.Log("Emote was a gif");
-                }
-                else
-                {
-                    // Fetch the BetterTTV emote PNG texture
-                    StartCoroutine(GetBTTVEmoteTexture($"{url}/3x"));
-                }
-            }
-            else
-            {
-                Debug.LogError($"Failed to parse BetterTTV emote information for {emoteID}");
-            }
-        }
-    }
-
-    // Display BetterTTV emote PNG texture
-    IEnumerator GetBTTVEmoteTexture(string url)
-    {
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
-        yield return www.SendWebRequest();
-
-        Texture2D img = DownloadHandlerTexture.GetContent(www);
-
-        // Instantiate emote particle with the texture
-        GameObject emotePart = Instantiate(emotePrefab, transform.position, transform.rotation);
-        emotePart.GetComponent<ParticleSystem>().GetComponent<Renderer>().material.mainTexture = img;
-    }
-
     //saves texture to the EmoteTextures folder
     void SaveTextureToFile(Texture2D texture, string emoteID)
     {
         byte[] bytes = texture.EncodeToPNG();
 
         // Create a folder named "EmoteTextures" within the Assets folder
-        string folderPath = Application.dataPath + "/EmoteTextures";
+        string folderPath = Application.dataPath + "/Emotes";
         if (!Directory.Exists(folderPath))
         {
             Directory.CreateDirectory(folderPath);
