@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChatDisplayCanvas : MonoBehaviour
 {
@@ -20,9 +21,18 @@ public class ChatDisplayCanvas : MonoBehaviour
     private string Chatter;
     private string Message;
 
+    public ScrollRect scrollRect;
+
     void Start()
     {
         chatManager = FindObjectOfType<ChatManager>();
+
+        
+    }
+
+    private void Update()
+    {
+        
     }
 
     public void DisplayNewMessage(string chatter, string message)
@@ -33,5 +43,10 @@ public class ChatDisplayCanvas : MonoBehaviour
 
         Text.text = (chatter + ": " + message);
         //Text.color = 
+    }
+
+    public void ScrollToBottom()
+    {
+        scrollRect.verticalNormalizedPosition = 0f;
     }
 }

@@ -43,6 +43,7 @@ public class ChatManager : MonoBehaviour
         foreach (ChatDisplayCanvas chatDisplay in chatDisplays)
         {
             chatDisplay.DisplayNewMessage(chatter, message);
+            chatDisplay.ScrollToBottom();
         }
 
         UpdateChatDisplayList();
