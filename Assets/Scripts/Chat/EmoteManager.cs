@@ -1,3 +1,10 @@
+/*******************************************************************************
+Author: Taylor
+State: Currently working on
+Description:
+Retrieves all emotes on awake from Twitch and BetterTTV and assigns them to a dictionary.
+*******************************************************************************/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,51 +20,26 @@ public class EmoteManager : MonoBehaviour
         public string id;
         public string code;
         public Texture2D texture;
+        public string imageType;
     }
 
     // Define a wrapper class to represent the structure of the entire response
     [System.Serializable]
-    public class EmoteResponse
+    public class BetterTTVEmoteResponse
     {
         public Emote[] emotes;
     }
 
     // Dictionary to store emotes with code as the key
-    private Dictionary<string, Emote> emoteDictionary = new Dictionary<string, Emote>();
-
-    private Image image;
-    public string emoteTest;
+    public Dictionary<string, Emote> staticEmoteDictionary = new Dictionary<string, Emote>();
 
     void Awake()
     {
-        StartCoroutine(Test());
-        image = GetComponent<Image>();
+        StartCoroutine(RetrieveBetterTTV());
     }
 
-    private void Update()
-    {
-        if (emoteDictionary.ContainsKey(emoteTest))
-        {
-            if (image.material.mainTexture != emoteDictionary[emoteTest].texture)
-            {
-                // Destroy the current Image component
-                Destroy(image);
-
-                // Add a new Image component
-                Image newImage = gameObject.AddComponent<Image>();
-
-                // Set the material texture
-                newImage.material.mainTexture = emoteDictionary[emoteTest].texture;
-
-                // Assign the new Image component to the 'image' variable
-                image = newImage;
-
-                Debug.Log("Changed texture");
-            }
-        }
-    }
-
-    IEnumerator Test()
+    //retrieves all static BetterTTV emotes and adds them to the dictionary
+    IEnumerator RetrieveBetterTTV()
     {
         UnityWebRequest www = UnityWebRequest.Get("https://api.betterttv.net/3/cached/emotes/global");
         yield return www.SendWebRequest();
@@ -69,7 +51,7 @@ public class EmoteManager : MonoBehaviour
         else
         {
             // Deserialize the entire response into the EmoteResponse class
-            EmoteResponse response = JsonUtility.FromJson<EmoteResponse>("{\"emotes\":" + www.downloadHandler.text + "}");
+            BetterTTVEmoteResponse response = JsonUtility.FromJson<BetterTTVEmoteResponse>("{\"emotes\":" + www.downloadHandler.text + "}");
 
             // Access the array within the response
             Emote[] emotes = response.emotes;
@@ -77,34 +59,77 @@ public class EmoteManager : MonoBehaviour
             // Iterate through the array and print id and code for each item
             foreach (Emote emote in emotes)
             {
-                // Create the URL for the emote texture
-                string emoteTextureURL = "https://cdn.betterttv.net/emote/" + emote.id + "/3x";
-
-                // Fetch the emote texture using UnityWebRequestTexture
-                UnityWebRequest wwwTexture = UnityWebRequestTexture.GetTexture(emoteTextureURL);
-                yield return wwwTexture.SendWebRequest();
-
-                // Check for errors in the texture request
-                if (wwwTexture.result == UnityWebRequest.Result.ConnectionError ||
-                    wwwTexture.result == UnityWebRequest.Result.ProtocolError)
+                if (emote.imageType != "gif")
                 {
-                    Debug.LogError("Error fetching emote texture: " + wwwTexture.error);
-                }
-                else
-                {
-                    // Set the texture in the emote object
-                    emote.texture = ((DownloadHandlerTexture)wwwTexture.downloadHandler).texture;
+                    // Create the URL for the emote texture
+                    string emoteTextureURL = "https://cdn.betterttv.net/emote/" + emote.id + "/3x";
 
-                    // Add the emote to the dictionary
-                    emoteDictionary[emote.code] = emote;
+                    // Fetch the emote texture using UnityWebRequestTexture
+                    UnityWebRequest wwwTexture = UnityWebRequestTexture.GetTexture(emoteTextureURL);
+                    yield return wwwTexture.SendWebRequest();
+
+                    // Check for errors in the texture request
+                    if (wwwTexture.result == UnityWebRequest.Result.ConnectionError ||
+                        wwwTexture.result == UnityWebRequest.Result.ProtocolError)
+                    {
+                        Debug.LogError("Error fetching emote texture: " + wwwTexture.error);
+                    }
+                    else
+                    {
+                        // Set the texture in the emote object
+                        emote.texture = ((DownloadHandlerTexture)wwwTexture.downloadHandler).texture;
+
+                        // Add the emote to the dictionary
+                        staticEmoteDictionary[emote.code] = emote;
+                    }
                 }
             }
 
-            // Print every dictionary item
-            foreach (var kvp in emoteDictionary)
-            {
-                Debug.Log("Key: " + kvp.Key + ", Value (ID): " + kvp.Value.id + ", Value (Texture): " + kvp.Value.texture);
-            }
+            RetrieveTwitchGlobal();
         }
+    }
+
+    // retrieves pre-downloaded Twitch global emotes and adds them to the dictionary
+    void RetrieveTwitchGlobal()
+    {
+        // Load all Texture2D objects from the specified folder in the "Resources" directory
+        Texture2D[] emoteTextures = Resources.LoadAll<Texture2D>("Emotes/TwitchGlobal");
+
+        // Iterate through the loaded textures and add them to the dictionary
+        foreach (Texture2D texture in emoteTextures)
+        {
+            // Replace characters in the name if needed
+            string emoteName = TwitchCharReplacement(texture.name);
+
+            // Create a default Emote object for Twitch global emotes
+            Emote twitchEmote = new Emote
+            {
+                id = "null",
+                code = emoteName,
+                texture = texture,
+                imageType = "png"
+            };
+
+            // Add to the dictionary
+            staticEmoteDictionary[emoteName] = twitchEmote;
+        }
+
+        // Print every dictionary item
+        foreach (var kvp in staticEmoteDictionary)
+        {
+            Debug.Log("Key (ID): " + kvp.Key);
+        }
+    }
+
+    //fixes twitch global names before adding them to the dictionary
+    string TwitchCharReplacement(string input)
+    {
+        input = input.Replace('!', ':');
+        input = input.Replace('@', '\\');
+        input = input.Replace('#', '|');
+        input = input.Replace('$', '<');
+        input = input.Replace('%', '>');
+
+        return input;
     }
 }
