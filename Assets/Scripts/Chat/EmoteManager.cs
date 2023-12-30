@@ -7,6 +7,7 @@ Retrieves all emotes on awake from Twitch and BetterTTV and assigns them to a di
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -59,7 +60,14 @@ public class EmoteManager : MonoBehaviour
             // Iterate through the array and print id and code for each item
             foreach (Emote emote in emotes)
             {
-                if (emote.imageType != "gif")
+                //handles animated emotes
+                if(emote.imageType == "gif")
+                {
+                    
+                }
+
+                //handles static emotes
+                if (emote.imageType == "png")
                 {
                     // Create the URL for the emote texture
                     string emoteTextureURL = "https://cdn.betterttv.net/emote/" + emote.id + "/3x";
@@ -112,12 +120,6 @@ public class EmoteManager : MonoBehaviour
 
             // Add to the dictionary
             staticEmoteDictionary[emoteName] = twitchEmote;
-        }
-
-        // Print every dictionary item
-        foreach (var kvp in staticEmoteDictionary)
-        {
-            Debug.Log("Key (ID): " + kvp.Key);
         }
     }
 
