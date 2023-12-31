@@ -517,6 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379293f778194394bb0120087c544519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  channelID: 587142171
 --- !u!4 &801072915
 Transform:
   m_ObjectHideFlags: 0
@@ -1218,7 +1219,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &2136453318
 Animator:
   serializedVersion: 4

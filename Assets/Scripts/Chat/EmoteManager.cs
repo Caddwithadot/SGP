@@ -31,16 +31,81 @@ public class EmoteManager : MonoBehaviour
         public Emote[] emotes;
     }
 
+    [System.Serializable]
+    public class UserResponse
+    {
+        public string id;
+        public string[] bots;
+        public string avatar;
+        public Emote[] channelEmotes;
+        public Emote[] sharedEmotes;
+    }
+
     // Dictionary to store emotes with code as the key
     public Dictionary<string, Emote> staticEmoteDictionary = new Dictionary<string, Emote>();
 
+    //default is possilbycadd
+    //go here to find different ID https://www.streamweasels.com/tools/convert-twitch-username-to-user-id/
+    public string channelID = "587142171";
+
     void Awake()
     {
-        StartCoroutine(RetrieveBetterTTV());
+        StartCoroutine(ActiveBetterTTV());
+        StartCoroutine(RetrieveBetterTTVGlobal());
     }
 
-    //retrieves all static BetterTTV emotes and adds them to the dictionary
-    IEnumerator RetrieveBetterTTV()
+    //retrieves currently used BetterTTV emotes for the channel
+    IEnumerator ActiveBetterTTV()
+    {
+        UnityWebRequest www = UnityWebRequest.Get("https://api.betterttv.net/3/cached/users/twitch/" + channelID);
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.LogError("Error: " + www.error);
+        }
+        else
+        {
+            // Deserialize the JSON response
+            UserResponse userResponse = JsonUtility.FromJson<UserResponse>(www.downloadHandler.text);
+
+            // Access the array of emotes
+            Emote[] emotes = userResponse.sharedEmotes;
+
+            // Iterate through the emotes and do something with them
+            foreach (Emote emote in emotes)
+            {
+                //handles static emotes
+                if (emote.imageType == "png")
+                {
+                    // Create the URL for the emote texture
+                    string emoteTextureURL = "https://cdn.betterttv.net/emote/" + emote.id + "/3x";
+
+                    // Fetch the emote texture using UnityWebRequestTexture
+                    UnityWebRequest wwwTexture = UnityWebRequestTexture.GetTexture(emoteTextureURL);
+                    yield return wwwTexture.SendWebRequest();
+
+                    // Check for errors in the texture request
+                    if (wwwTexture.result == UnityWebRequest.Result.ConnectionError ||
+                        wwwTexture.result == UnityWebRequest.Result.ProtocolError)
+                    {
+                        Debug.LogError("Error fetching emote texture: " + wwwTexture.error);
+                    }
+                    else
+                    {
+                        // Set the texture in the emote object
+                        emote.texture = ((DownloadHandlerTexture)wwwTexture.downloadHandler).texture;
+
+                        // Add the emote to the dictionary
+                        staticEmoteDictionary[emote.code] = emote;
+                    }
+                }
+            }
+        }
+    }
+
+    //retrieves all static global BetterTTV emotes
+    IEnumerator RetrieveBetterTTVGlobal()
     {
         UnityWebRequest www = UnityWebRequest.Get("https://api.betterttv.net/3/cached/emotes/global");
         yield return www.SendWebRequest();
@@ -60,12 +125,6 @@ public class EmoteManager : MonoBehaviour
             // Iterate through the array and print id and code for each item
             foreach (Emote emote in emotes)
             {
-                //handles animated emotes
-                if(emote.imageType == "gif")
-                {
-                    
-                }
-
                 //handles static emotes
                 if (emote.imageType == "png")
                 {
@@ -97,7 +156,7 @@ public class EmoteManager : MonoBehaviour
         }
     }
 
-    // retrieves pre-downloaded Twitch global emotes and adds them to the dictionary
+    // retrieves all pre-downloaded global Twitch emotes
     void RetrieveTwitchGlobal()
     {
         // Load all Texture2D objects from the specified folder in the "Resources" directory
@@ -120,6 +179,12 @@ public class EmoteManager : MonoBehaviour
 
             // Add to the dictionary
             staticEmoteDictionary[emoteName] = twitchEmote;
+        }
+
+        // Print every dictionary item
+        foreach (var kvp in staticEmoteDictionary)
+        {
+            Debug.Log(kvp.Key);
         }
     }
 
