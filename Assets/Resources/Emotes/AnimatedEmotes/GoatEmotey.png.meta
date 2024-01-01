@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 67358c4b67da8bb4c8883f1abe4fed00
+guid: 66a0418361b5c9f41866030d4f199eee
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -128,7 +128,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GoatEmotey_0
+      name: GoatEmotey 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -142,14 +142,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd925af4086b786469bc89f81d3b9fcc
-      internalID: 177908211
+      spriteID: 23da560995a3ff84086dc3c7daf1c435
+      internalID: 1518433126
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GoatEmotey_1
+      name: GoatEmotey 1_1
       rect:
         serializedVersion: 2
         x: 112
@@ -163,14 +163,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ce113ed21da03043b69e53c87032f99
-      internalID: -955074442
+      spriteID: 22187cca1b2b5674484571e74be5f396
+      internalID: 1786658107
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GoatEmotey_2
+      name: GoatEmotey 1_2
       rect:
         serializedVersion: 2
         x: 224
@@ -184,14 +184,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd2e6ad6335167e4bad8346db6b3a483
-      internalID: -1051134556
+      spriteID: 131205b75e53af5419af6cdbc1c90eaa
+      internalID: 1835431433
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GoatEmotey_3
+      name: GoatEmotey 1_3
       rect:
         serializedVersion: 2
         x: 336
@@ -205,35 +205,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4674891bb1f7f03428a8899db299ce43
-      internalID: -1252188058
+      spriteID: 47279382de7e3b64387e5acb73af9848
+      internalID: -1154452279
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GoatEmotey_4
-      rect:
-        serializedVersion: 2
-        x: 448
-        y: 336
-        width: 112
-        height: 112
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ea6a046392490ea4a8bb404d6e4cfcfb
-      internalID: -414885949
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GoatEmotey_5
+      name: GoatEmotey 1_4
       rect:
         serializedVersion: 2
         x: 0
@@ -247,14 +226,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb78751aa3013c344a3ac4cef9b5a86f
-      internalID: 668672770
+      spriteID: 59849f377b294464189f7092021c20e9
+      internalID: -1016211325
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GoatEmotey_6
+      name: GoatEmotey 1_5
       rect:
         serializedVersion: 2
         x: 112
@@ -268,14 +247,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e5c13953e730b341ac6abc7278e6b9f
-      internalID: 2089796065
+      spriteID: dc4a814ea4ac6f844aafb570f88b8f4a
+      internalID: 891633160
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GoatEmotey_7
+      name: GoatEmotey 1_6
       rect:
         serializedVersion: 2
         x: 224
@@ -289,14 +268,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6012d10340888534fbd35ad82be97a31
-      internalID: 532135019
+      spriteID: f11c63b8e9f01bc44a5fcbcdae32859d
+      internalID: -1898540349
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GoatEmotey_8
+      name: GoatEmotey 1_7
       rect:
         serializedVersion: 2
         x: 336
@@ -310,35 +289,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2412b49edfeb4364a9a1e8b2e965ef12
-      internalID: -1355225613
+      spriteID: ba583b105f7971b4da774022e159981a
+      internalID: -770186963
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GoatEmotey_9
-      rect:
-        serializedVersion: 2
-        x: 448
-        y: 224
-        width: 112
-        height: 112
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 398820ceab1c5ef4aad798b42ebfd67c
-      internalID: -1830938235
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GoatEmotey_10
+      name: GoatEmotey 1_8
       rect:
         serializedVersion: 2
         x: 0
@@ -352,14 +310,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 07950059a62f88f468dfda85df6cd5b3
-      internalID: 532270713
+      spriteID: a3fbb6725cf0a8b45a23ffffecb8849d
+      internalID: 959573208
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GoatEmotey_11
+      name: GoatEmotey 1_9
       rect:
         serializedVersion: 2
         x: 112
@@ -373,14 +331,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f18e2ba5ce78ab048b27e3fcd9c03317
-      internalID: -1619928494
+      spriteID: 13cfc7ccab635c047a81a87c5ad5c6ce
+      internalID: -1408821463
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GoatEmotey_12
+      name: GoatEmotey 1_10
       rect:
         serializedVersion: 2
         x: 224
@@ -394,14 +352,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 29266021156aa89499f90dec7ba2c312
-      internalID: 206464025
+      spriteID: 51537e5196be24448843ba0fe472d4bb
+      internalID: -927268450
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GoatEmotey_13
+      name: GoatEmotey 1_11
       rect:
         serializedVersion: 2
         x: 336
@@ -415,35 +373,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f406ac2628a2b554fb6f74438b5172ed
-      internalID: 1032027442
+      spriteID: c1814566873f1e545a1c7f5c2feeb965
+      internalID: -1897586337
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GoatEmotey_14
-      rect:
-        serializedVersion: 2
-        x: 448
-        y: 112
-        width: 112
-        height: 112
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8861996703c30b748942705634fe50af
-      internalID: -918936157
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GoatEmotey_15
+      name: GoatEmotey 1_12
       rect:
         serializedVersion: 2
         x: 0
@@ -457,8 +394,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 451aa86048cd7bf46baa0b2d49779d17
-      internalID: -1955319958
+      spriteID: 018c380a7ce3f5f4b93e8c00142dc7c5
+      internalID: 1061781041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoatEmotey 1_13
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 0
+        width: 112
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db6a356e99d5588439d126eb8cb77666
+      internalID: 619590079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoatEmotey 1_14
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 112
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b90ffd262cdf724995c15c94a287e75
+      internalID: 1404599743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoatEmotey 1_15
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 0
+        width: 112
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ca8360274531cc428bab22ab32163f2
+      internalID: 386702355
       vertices: []
       indices: 
       edges: []
@@ -466,7 +466,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: e8230b2f3560a6e45833d90333d47450
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -474,22 +474,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      GoatEmotey_2: -1051134556
-      GoatEmotey_8: -1355225613
-      GoatEmotey_14: -918936157
-      GoatEmotey_1: -955074442
-      GoatEmotey_3: -1252188058
-      GoatEmotey_13: 1032027442
-      GoatEmotey_5: 668672770
-      GoatEmotey_15: -1955319958
-      GoatEmotey_11: -1619928494
-      GoatEmotey_7: 532135019
-      GoatEmotey_9: -1830938235
-      GoatEmotey_6: 2089796065
-      GoatEmotey_12: 206464025
-      GoatEmotey_0: 177908211
-      GoatEmotey_4: -414885949
-      GoatEmotey_10: 532270713
+      GoatEmotey 1_5: 891633160
+      GoatEmotey 1_12: 1061781041
+      GoatEmotey 1_0: 1518433126
+      GoatEmotey 1_8: 959573208
+      GoatEmotey 1_15: 386702355
+      GoatEmotey 1_6: -1898540349
+      GoatEmotey 1_13: 619590079
+      GoatEmotey 1_14: 1404599743
+      GoatEmotey 1_2: 1835431433
+      GoatEmotey 1_11: -1897586337
+      GoatEmotey 1_7: -770186963
+      GoatEmotey 1_10: -927268450
+      GoatEmotey 1_3: -1154452279
+      GoatEmotey 1_4: -1016211325
+      GoatEmotey 1_9: -1408821463
+      GoatEmotey 1_1: 1786658107
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

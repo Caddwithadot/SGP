@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 254768b66d48f3e44ae9467d4875bce2
+guid: 2f52d0c6b0726c44e858bc63d3574fbf
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -20,7 +20,7 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -128,112 +128,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TwitchConHYPE_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 224
-        width: 112
-        height: 112
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1ed238e620255a94d8151a9e2ba1f864
-      internalID: -1540417052
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TwitchConHYPE_1
-      rect:
-        serializedVersion: 2
-        x: 112
-        y: 224
-        width: 112
-        height: 112
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7b4c66996dfdacf47a9c45f46f19a933
-      internalID: -1341418704
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TwitchConHYPE_2
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 224
-        width: 112
-        height: 112
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cd9c15a0399368e4190c99ce3001eba5
-      internalID: -753959367
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TwitchConHYPE_3
-      rect:
-        serializedVersion: 2
-        x: 336
-        y: 224
-        width: 112
-        height: 112
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 74d4b1346d4bc974280abf0799ba6bb3
-      internalID: 1134563958
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TwitchConHYPE_4
-      rect:
-        serializedVersion: 2
-        x: 448
-        y: 224
-        width: 112
-        height: 112
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aad0f9277aa0c5b49b5808b29aaf3716
-      internalID: 2016017585
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TwitchConHYPE_5
+      name: TwitchConHype 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -247,14 +142,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35a4cb898f900354084a6e6e4442c8cb
-      internalID: 839526883
+      spriteID: dd1de1651538e604ba50c73237309a9c
+      internalID: 1051459828
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TwitchConHYPE_6
+      name: TwitchConHype 1_1
       rect:
         serializedVersion: 2
         x: 112
@@ -268,14 +163,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 273cf44425b7b6c48a4819da467d08c5
-      internalID: -1989359436
+      spriteID: 81769818bc389ad47b69d0565784ea02
+      internalID: -1863900779
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TwitchConHYPE_7
+      name: TwitchConHype 1_2
       rect:
         serializedVersion: 2
         x: 224
@@ -289,14 +184,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f32ae15ceac76fd41aaa3a34225c62c6
-      internalID: 1900983386
+      spriteID: 6aa0e7ebd746d934aa129c86deaea47d
+      internalID: -1335750316
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TwitchConHYPE_8
+      name: TwitchConHype 1_3
       rect:
         serializedVersion: 2
         x: 336
@@ -310,14 +205,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0707dcb32c327be438bec26612c32703
-      internalID: -1539115500
+      spriteID: 744b8bcdf4bc011458e3cb07c4b004d4
+      internalID: -852681983
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TwitchConHYPE_9
+      name: TwitchConHype 1_4
       rect:
         serializedVersion: 2
         x: 448
@@ -331,14 +226,56 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c38fdd28de7e8274589fa636811b3229
-      internalID: 870016336
+      spriteID: a8029925bb50d3d4b85a803c8af629f4
+      internalID: -1634839234
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TwitchConHYPE_10
+      name: TwitchConHype 1_5
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 112
+        width: 112
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 699dbbbc409f6864793e7dd81fe5a53f
+      internalID: -2080237840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TwitchConHype 1_6
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 112
+        width: 112
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c16249cd6851914e9c271aeef26af09
+      internalID: 459318893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TwitchConHype 1_7
       rect:
         serializedVersion: 2
         x: 0
@@ -352,14 +289,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb16e80c962627f419d0f94de621598c
-      internalID: 1293581869
+      spriteID: 8abb1933be7863a4db6bd2e8495124de
+      internalID: 1320258918
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TwitchConHYPE_11
+      name: TwitchConHype 1_8
       rect:
         serializedVersion: 2
         x: 112
@@ -373,14 +310,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff4de6e79c008234a89b2d61931e8dcf
-      internalID: 1371419553
+      spriteID: b60a916a9b9b1c64fa5a5851a34f4bc8
+      internalID: -761352825
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TwitchConHYPE_12
+      name: TwitchConHype 1_9
       rect:
         serializedVersion: 2
         x: 224
@@ -394,14 +331,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d67efdb8bca3e5c46b39ce4350826790
-      internalID: 159628409
+      spriteID: c86a14d8e3339ad409b9482654ffa758
+      internalID: 1552127847
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TwitchConHYPE_13
+      name: TwitchConHype 1_10
       rect:
         serializedVersion: 2
         x: 336
@@ -415,8 +352,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1cd8a4b674b0bfe4995e60b75d057ec5
-      internalID: -1258335222
+      spriteID: 0659f292d1cbc6149ac49f13625a6e84
+      internalID: -977230826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TwitchConHype 1_11
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 112
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4ec47f6a8ce9b04f8d05b3caba6c81e
+      internalID: -649766830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TwitchConHype 1_12
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 0
+        width: 112
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e036dac05e317f246969cc76cb37344d
+      internalID: -967641199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TwitchConHype 1_13
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 0
+        width: 112
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69618bf34909fc34caafd13b2bfd693a
+      internalID: 91418084
       vertices: []
       indices: 
       edges: []
@@ -424,7 +424,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 2e969a167baff7f41a2f8d5596cf916e
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -432,20 +432,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TwitchConHYPE_10: 1293581869
-      TwitchConHYPE_0: -1540417052
-      TwitchConHYPE_12: 159628409
-      TwitchConHYPE_9: 870016336
-      TwitchConHYPE_2: -753959367
-      TwitchConHYPE_3: 1134563958
-      TwitchConHYPE_7: 1900983386
-      TwitchConHYPE_4: 2016017585
-      TwitchConHYPE_13: -1258335222
-      TwitchConHYPE_8: -1539115500
-      TwitchConHYPE_6: -1989359436
-      TwitchConHYPE_5: 839526883
-      TwitchConHYPE_1: -1341418704
-      TwitchConHYPE_11: 1371419553
+      TwitchConHype 1_11: -649766830
+      TwitchConHype 1_4: -1634839234
+      TwitchConHype 1_3: -852681983
+      TwitchConHype 1_10: -977230826
+      TwitchConHype 1_9: 1552127847
+      TwitchConHype 1_5: -2080237840
+      TwitchConHype 1_6: 459318893
+      TwitchConHype 1_7: 1320258918
+      TwitchConHype 1_1: -1863900779
+      TwitchConHype 1_12: -967641199
+      TwitchConHype 1_13: 91418084
+      TwitchConHype 1_2: -1335750316
+      TwitchConHype 1_8: -761352825
+      TwitchConHype 1_0: 1051459828
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &878159612602402833
+--- !u!1 &1592033750838806077
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 878159612602402838}
-  - component: {fileID: 878159612602402839}
-  - component: {fileID: 878159612602402832}
+  - component: {fileID: 1592033750838806074}
+  - component: {fileID: 1592033750838806075}
+  - component: {fileID: 1592033750838806076}
   m_Layer: 0
-  m_Name: TwitchConHYPE
+  m_Name: catDisco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &878159612602402838
+--- !u!4 &1592033750838806074
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 878159612602402833}
+  m_GameObject: {fileID: 1592033750838806077}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 48.10625, y: 133.46071, z: -15.507539}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,13 +33,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!198 &878159612602402839
+--- !u!198 &1592033750838806075
 ParticleSystem:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 878159612602402833}
+  m_GameObject: {fileID: 1592033750838806077}
   serializedVersion: 8
   lengthInSec: 5
   simulationSpeed: 1
@@ -1474,28 +1474,51 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     speedRange: {x: 0, y: 1}
-    tilesX: 7
-    tilesY: 2
+    tilesX: 6
+    tilesY: 7
     animationType: 0
     rowIndex: 0
-    cycles: 9.5
+    cycles: 2.5
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: -1540417052, guid: 254768b66d48f3e44ae9467d4875bce2, type: 3}
-    - sprite: {fileID: -1341418704, guid: 254768b66d48f3e44ae9467d4875bce2, type: 3}
-    - sprite: {fileID: -753959367, guid: 254768b66d48f3e44ae9467d4875bce2, type: 3}
-    - sprite: {fileID: 1134563958, guid: 254768b66d48f3e44ae9467d4875bce2, type: 3}
-    - sprite: {fileID: 2016017585, guid: 254768b66d48f3e44ae9467d4875bce2, type: 3}
-    - sprite: {fileID: 839526883, guid: 254768b66d48f3e44ae9467d4875bce2, type: 3}
-    - sprite: {fileID: -1989359436, guid: 254768b66d48f3e44ae9467d4875bce2, type: 3}
-    - sprite: {fileID: 1900983386, guid: 254768b66d48f3e44ae9467d4875bce2, type: 3}
-    - sprite: {fileID: -1539115500, guid: 254768b66d48f3e44ae9467d4875bce2, type: 3}
-    - sprite: {fileID: 870016336, guid: 254768b66d48f3e44ae9467d4875bce2, type: 3}
-    - sprite: {fileID: 1293581869, guid: 254768b66d48f3e44ae9467d4875bce2, type: 3}
-    - sprite: {fileID: 1371419553, guid: 254768b66d48f3e44ae9467d4875bce2, type: 3}
-    - sprite: {fileID: 159628409, guid: 254768b66d48f3e44ae9467d4875bce2, type: 3}
-    - sprite: {fileID: -1258335222, guid: 254768b66d48f3e44ae9467d4875bce2, type: 3}
+    - sprite: {fileID: -1076195479, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -937661745, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -467521562, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -1818382707, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -739617427, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -920544530, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -162110101, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: 177154677, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: 1630061852, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: 811091828, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: 1846619042, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: 1117575068, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -1561518748, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: 1006764115, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -227564658, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: 932077343, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -852542663, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -771341210, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: 975582660, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: 1689998931, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -665861435, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: 874564558, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: 720048816, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -1602557188, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -1172041681, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: 1159683579, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -1614724113, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: 1582483267, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -569011853, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -1752890248, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -117698005, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: 2127938458, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -50630227, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -1838304729, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: -52812407, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: 730416934, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
+    - sprite: {fileID: 1918128510, guid: a7dba5b9c5ba451428ee27d8ea2a36b4, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -4753,14 +4776,14 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!199 &878159612602402832
+--- !u!199 &1592033750838806076
 ParticleSystemRenderer:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 9199539127781530099, guid: 8faa96c243f0b1548b31a79e466b2f24, type: 3}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 878159612602402833}
+  m_GameObject: {fileID: 1592033750838806077}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -4774,7 +4797,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 743718745f3f60f4f8b0cf2e280d77da, type: 2}
+  - {fileID: 2100000, guid: 4754a5e3250323e498ba54c8e4ce987a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

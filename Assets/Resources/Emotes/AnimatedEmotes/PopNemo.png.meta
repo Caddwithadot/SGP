@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9f64835c3184e8b40a0e075772d95b2e
+guid: f781e8c4e23cfa84fb7f53e65ec294a2
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -128,7 +128,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PopNemo_0
+      name: PopNemo 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -142,14 +142,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab7de03b41e60f14bb2cdb18ec42f404
-      internalID: 280749279
+      spriteID: 0d6b50da86fc2f44f86613fde31c5180
+      internalID: 867566997
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PopNemo_1
+      name: PopNemo 1_1
       rect:
         serializedVersion: 2
         x: 112
@@ -163,8 +163,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 391d193c2dfadfe468bf053598baead1
-      internalID: 1594198706
+      spriteID: 39cf680ad639eed4ab46bd2fffe0caf9
+      internalID: -503535177
       vertices: []
       indices: 
       edges: []
@@ -172,7 +172,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 6fb4edc7cf41d0443a197d55cbec7038
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -180,8 +180,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      PopNemo_1: 1594198706
-      PopNemo_0: 280749279
+      PopNemo 1_1: -503535177
+      PopNemo 1_0: 867566997
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
