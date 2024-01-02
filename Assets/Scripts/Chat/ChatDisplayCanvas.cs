@@ -1,6 +1,6 @@
 /*******************************************************************************
 Author: Jared
-State: In progress (Needs comments)
+State: In progress of adding emotes (Needs comments)
 Description:
  Displays messages in the chat canvas
 *******************************************************************************/
@@ -17,6 +17,7 @@ public class ChatDisplayCanvas : MonoBehaviour
 
     private ChatManager chatManager;
     private TwitchConnect twitchConnect;
+    private EmoteManager emoteManager;
 
     public GameObject ChatBoxParent;
     public GameObject ChatBoxPrefab;
@@ -28,6 +29,7 @@ public class ChatDisplayCanvas : MonoBehaviour
     {
         chatManager = FindObjectOfType<ChatManager>();
         twitchConnect = FindObjectOfType<TwitchConnect>();
+        emoteManager = FindObjectOfType<EmoteManager>();
 
         //Sets the header label to the current streamer's name
         CurrentChat = twitchConnect.Channel;
@@ -36,6 +38,21 @@ public class ChatDisplayCanvas : MonoBehaviour
 
     public void DisplayNewMessage(string chatter, string message)
     {
+        //MOVE THIS to start or make a function
+        List<string> EmoteNames = new List<string>(emoteManager.staticEmoteDictionary.Keys);
+
+        for (int i = 0; i < emoteManager.staticEmoteDictionary.Count; i++)
+        {
+            if (message.Contains(EmoteNames[i]))
+            {
+                message = message.Replace(EmoteNames[i], "<sprite name=" + emoteManager.staticEmoteDictionary[EmoteNames[i]].code + ">");
+
+                Debug.Log(message);
+            }
+        }
+
+        string EmotedMessage = message;
+
         //Gets a reference to the instantiated chat box
         GameObject chatBox = Instantiate(ChatBoxPrefab, ChatBoxParent.transform);
 
@@ -45,7 +62,7 @@ public class ChatDisplayCanvas : MonoBehaviour
 
         //Changes chat box text
         TextMeshProUGUI Text = chatBox.GetComponentInChildren<TextMeshProUGUI>();
-        Text.text = (chatter + ": " + message);
+        Text.text = (chatter + ": " + EmotedMessage);
 
         //Updates vertical layout group
         LayoutRebuilder.ForceRebuildLayoutImmediate(ChatBoxParent.GetComponent<RectTransform>());
