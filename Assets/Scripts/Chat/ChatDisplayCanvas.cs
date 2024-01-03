@@ -45,7 +45,7 @@ public class ChatDisplayCanvas : MonoBehaviour
         {
             if (message.Contains(EmoteNames[i]))
             {
-                message = message.Replace(EmoteNames[i], "<sprite name=" + emoteManager.staticEmoteDictionary[EmoteNames[i]].code + ">");
+                message = message.Replace(EmoteNames[i], "<sprite name=\"" + emoteManager.staticEmoteDictionary[EmoteNames[i]].code + "\">" );
 
                 Debug.Log(message);
             }
