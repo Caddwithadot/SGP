@@ -181,11 +181,13 @@ public class EmoteManager : MonoBehaviour
             staticEmoteDictionary[emoteName] = twitchEmote;
         }
 
+        /*
         // Print every dictionary item
         foreach (var kvp in staticEmoteDictionary)
         {
             Debug.Log(kvp.Key);
         }
+        */
     }
 
     //fixes twitch global names before adding them to the dictionary
