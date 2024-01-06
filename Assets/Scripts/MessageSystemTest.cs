@@ -6,17 +6,23 @@ using TMPro;
 public class MessageSystemTest : MonoBehaviour
 {
     public GameObject textBoxPrefab;
+    public GameObject horizontalGroupPrefab; // Add a reference to your horizontal layout group prefab
     public Transform messageContainer;
     public float maxLineWidth = 400f;
 
-    private List<Transform> currentLine = new List<Transform>();
+    private Transform currentHorizontalGroup;
     private float currentLineWidth = 0f;
 
     public string testMessage = "";
 
+    void Start()
+    {
+        CreateNewHorizontalGroup();
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             SendMessage(testMessage);
         }
@@ -30,7 +36,7 @@ public class MessageSystemTest : MonoBehaviour
 
             foreach (string word in words)
             {
-                GameObject textBox = Instantiate(textBoxPrefab, messageContainer);
+                GameObject textBox = Instantiate(textBoxPrefab, currentHorizontalGroup);
                 TextMeshProUGUI textComponent = textBox.GetComponentInChildren<TextMeshProUGUI>();
                 textComponent.text = word;
 
@@ -44,7 +50,6 @@ public class MessageSystemTest : MonoBehaviour
                     MoveToNextLine();
                 }
 
-                currentLine.Add(textBox.transform);
                 currentLineWidth += wordWidth;
             }
 
@@ -56,16 +61,24 @@ public class MessageSystemTest : MonoBehaviour
 
     void MoveToNextLine()
     {
-        if (currentLine.Count > 0)
+        // Move the current line to the next line
+        foreach (Transform textBox in currentHorizontalGroup)
         {
-            // Move the current line to the next line
-            foreach (Transform textBox in currentLine)
-            {
-                textBox.localPosition -= new Vector3(0f, LayoutUtility.GetPreferredHeight(textBox.GetComponent<RectTransform>()), 0f);
-            }
-
-            // Clear the current line
-            currentLine.Clear();
+            textBox.localPosition -= new Vector3(0f, LayoutUtility.GetPreferredHeight(textBox.GetComponent<RectTransform>()), 0f);
         }
+
+        // Create a new horizontal layout group if needed
+        if (currentLineWidth > maxLineWidth)
+        {
+            currentLineWidth = 0f;
+            CreateNewHorizontalGroup();
+        }
+    }
+
+    void CreateNewHorizontalGroup()
+    {
+        // Instantiate the horizontal layout group prefab
+        GameObject newHorizontalGroup = Instantiate(horizontalGroupPrefab, messageContainer);
+        currentHorizontalGroup = newHorizontalGroup.transform;
     }
 }
