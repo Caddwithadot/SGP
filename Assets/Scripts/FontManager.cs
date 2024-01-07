@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,23 +8,33 @@ public class FontManager : MonoBehaviour
 {
     public List<TMP_FontAsset> fontAssets;
     public GameObject textPrefab;
-    public Transform parentObject;
+    public Transform tempLayoutGroup;
 
     private Dictionary<TMP_FontAsset, Dictionary<char, float>> fontCharacterWidths = new Dictionary<TMP_FontAsset, Dictionary<char, float>>();
 
-    public string testText;
-    public TMP_FontAsset testFont;
+    public float defaultFontSize = 36f;
 
     void Awake()
     {
+        PopulateFontAssets();
         InstantiateCharacters();
     }
 
-    private void Update()
+    void PopulateFontAssets()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        fontAssets.Clear();
+
+        string[] guids = AssetDatabase.FindAssets("t:TMP_FontAsset");
+
+        foreach (string guid in guids)
         {
-            GetSumOfWidths(testText, testFont);
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            TMP_FontAsset fontAsset = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(path);
+
+            if (fontAsset != null)
+            {
+                fontAssets.Add(fontAsset);
+            }
         }
     }
 
@@ -44,8 +55,11 @@ public class FontManager : MonoBehaviour
 
             foreach (char character in allCharacters)
             {
-                GameObject textObject = Instantiate(textPrefab, parentObject);
+                GameObject textObject = Instantiate(textPrefab, tempLayoutGroup);
                 TextMeshProUGUI textComponent = textObject.GetComponent<TextMeshProUGUI>();
+                
+                // Set the font size
+                textComponent.fontSize = defaultFontSize;
 
                 // Set the font asset
                 textComponent.font = fontAsset;
@@ -60,6 +74,26 @@ public class FontManager : MonoBehaviour
                 characterWidths.Add(character, preferredWidth);
             }
         }
+
+        //destroy the temporary layout group after getting all font character widths
+        Destroy(tempLayoutGroup.gameObject);
+
+        // Print information for each font asset in the dictionary
+        foreach (var kvp in fontCharacterWidths)
+        {
+            TMP_FontAsset currentFontAsset = kvp.Key;
+            Dictionary<char, float> currentCharacterWidths = kvp.Value;
+
+            Debug.Log($"Font Asset: {currentFontAsset.name}");
+
+            foreach (var characterWidth in currentCharacterWidths)
+            {
+                char character = characterWidth.Key;
+                float width = characterWidth.Value;
+
+                Debug.Log($"Character: '{character}', Width: {width}");
+            }
+        }
     }
 
     string GetAllCharacters()
@@ -72,7 +106,7 @@ public class FontManager : MonoBehaviour
         return allCharacters;
     }
 
-    // Method to get the sum of preferred widths for a given string and font asset name
+    // need to update this
     public float GetSumOfWidths(string text, TMP_FontAsset fontAsset)
     {
         float sumOfWidths = 0f;

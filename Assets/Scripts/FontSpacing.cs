@@ -12,62 +12,46 @@ public class FontSpacingEntry
 
 public class FontSpacing : MonoBehaviour
 {
+    private FontManager fontManager;
+
     public List<FontSpacingEntry> fontSpacingEntries;
-    public HorizontalLayoutGroup horizontalLayoutGroup;
-    public TMP_FontAsset currentFontAsset;
-
-    private TMP_FontAsset newFontAsset;
-
     private Dictionary<TMP_FontAsset, float> fontSpacingMap = new Dictionary<TMP_FontAsset, float>();
 
+    private float defaultFontSize;
     private float defaultSpacing;
     private float scaledSpacing;
 
-    private float defaultFontSize = 36f;
-    private float currentFontSize;
-    public float fontSize;
+    public Transform chatVerticalLayout;
 
     private void Start()
     {
-        fontSize = defaultFontSize;
-        currentFontSize = fontSize;
-        newFontAsset = currentFontAsset;
-
-        SetFontSpacing();
+        fontManager = GetComponent<FontManager>();
+        defaultFontSize = fontManager.defaultFontSize;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void FontChange(TMP_FontAsset newFont, float newSize)
     {
-        if (newFontAsset != currentFontAsset || currentFontSize != fontSize)
+        SetFontSpacing(newFont, newSize);
+
+        // Set the default spacing based on the current font asset
+        if (fontSpacingMap.TryGetValue(newFont, out float currentFontSpacing))
         {
-            SetFontSpacing();
+            defaultSpacing = currentFontSpacing;
+            scaledSpacing = defaultSpacing * (newSize / defaultFontSize);
 
-            // Set the default spacing based on the current font asset
-            if (fontSpacingMap.TryGetValue(currentFontAsset, out float currentFontSpacing))
-            {
-                defaultSpacing = currentFontSpacing;
-                scaledSpacing = defaultSpacing * (fontSize / defaultFontSize);
+            // Apply the scaled spacing to the HorizontalLayoutGroup
+            UpdateChildLayoutGroupsSpacing(scaledSpacing);
 
-                // Apply the scaled spacing to the HorizontalLayoutGroup
-                horizontalLayoutGroup.spacing = scaledSpacing;
-
-                // Update the scale of all child TextMeshPro components based on the fontSize
-                UpdateChildTextScales();
-            }
-            else
-            {
-                Debug.LogWarning($"Spacing not found for current font asset '{currentFontAsset.name}'.");
-            }
-
-            
-
-            currentFontSize = fontSize;
-            newFontAsset = currentFontAsset;
+            // Update the scale of all child TextMeshPro components based on the fontSize
+            UpdateChildTextScales(newSize);
+        }
+        else
+        {
+            Debug.LogWarning($"Spacing not found for current font asset '{newFont.name}'.");
         }
     }
 
-    void SetFontSpacing()
+    void SetFontSpacing(TMP_FontAsset newFont, float newSize)
     {
         foreach (FontSpacingEntry entry in fontSpacingEntries)
         {
@@ -82,50 +66,61 @@ public class FontSpacing : MonoBehaviour
         }
 
         // Apply spacing for the current font asset
-        UpdateFontAndSpacing(currentFontAsset);
+        UpdateFontAndSpacing(newFont, newSize);
     }
 
-    public void UpdateFontAndSpacing(TMP_FontAsset fontAsset)
+    void UpdateFontAndSpacing(TMP_FontAsset newFont, float newSize)
     {
-        if (fontSpacingMap.TryGetValue(fontAsset, out float spacing))
+        if (fontSpacingMap.TryGetValue(newFont, out float spacing))
         {
-            // Update the font of all child TextMeshPro components
-            foreach (Transform child in transform)
+            TextMeshProUGUI[] textComponents = chatVerticalLayout.GetComponentsInChildren<TextMeshProUGUI>(true);
+
+            foreach (TextMeshProUGUI textComponent in textComponents)
             {
-                TextMeshProUGUI textComponent = child.GetComponent<TextMeshProUGUI>();
                 if (textComponent != null)
                 {
-                    textComponent.font = fontAsset;
+                    textComponent.font = newFont;
                 }
             }
 
             // Update defaultSpacing and scaledSpacing based on the new font asset
             float newDefaultSpacing = spacing;
-            float newSizeDifference = fontSize / defaultFontSize;
+            float newSizeDifference = newSize / defaultFontSize;
             defaultSpacing = newDefaultSpacing * newSizeDifference;
             scaledSpacing = newDefaultSpacing;
 
             // Apply the scaled spacing to the HorizontalLayoutGroup
-            horizontalLayoutGroup.spacing = scaledSpacing;
+            UpdateChildLayoutGroupsSpacing(scaledSpacing);
 
             // Update the scale of all child TextMeshPro components based on the fontSize
-            UpdateChildTextScales();
+            UpdateChildTextScales(newSize);
         }
         else
         {
-            Debug.LogWarning($"Spacing not found for font '{fontAsset.name}'.");
+            Debug.LogWarning($"Spacing not found for font '{newFont.name}'.");
         }
     }
 
-    void UpdateChildTextScales()
+    void UpdateChildTextScales(float newSize)
     {
-        foreach (Transform child in transform)
+        TextMeshProUGUI[] textComponents = chatVerticalLayout.GetComponentsInChildren<TextMeshProUGUI>(true);
+
+        foreach (TextMeshProUGUI textComponent in textComponents)
         {
-            TextMeshProUGUI textComponent = child.GetComponent<TextMeshProUGUI>();
-            if (textComponent != null)
+            // Update the scale of the text component based on the fontSize
+            textComponent.fontSize = newSize;
+        }
+    }
+
+    void UpdateChildLayoutGroupsSpacing(float spacing)
+    {
+        foreach (Transform child in chatVerticalLayout)
+        {
+            HorizontalLayoutGroup layoutGroup = child.GetComponent<HorizontalLayoutGroup>();
+            if (layoutGroup != null)
             {
-                // Update the scale of the text component based on the fontSize
-                textComponent.fontSize = fontSize;
+                // Update the spacing of the HorizontalLayoutGroup component
+                layoutGroup.spacing = spacing;
             }
         }
     }
