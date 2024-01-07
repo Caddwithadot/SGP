@@ -44,7 +44,7 @@ public class FontManager : MonoBehaviour
 
             foreach (char character in allCharacters)
             {
-                GameObject textObject = Instantiate(textPrefab, transform.position, transform.rotation, parentObject);
+                GameObject textObject = Instantiate(textPrefab, parentObject);
                 TextMeshProUGUI textComponent = textObject.GetComponent<TextMeshProUGUI>();
 
                 // Set the font asset
@@ -55,7 +55,6 @@ public class FontManager : MonoBehaviour
 
                 // Print the preferred width
                 float preferredWidth = LayoutUtility.GetPreferredWidth(textComponent.rectTransform);
-                Debug.Log($"Font: {fontAsset.name}, Character '{character}': Preferred Width = {preferredWidth}");
 
                 // Track the preferred width in the dictionary
                 characterWidths.Add(character, preferredWidth);
