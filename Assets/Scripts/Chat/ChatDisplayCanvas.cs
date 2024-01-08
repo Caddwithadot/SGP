@@ -11,6 +11,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Test delete this line
 public class ChatDisplayCanvas : MonoBehaviour
 {
     private string CurrentChat = "STREAMER";
