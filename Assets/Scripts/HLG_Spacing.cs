@@ -10,12 +10,12 @@ public class FontSpacingEntry
     public float spacing;
 }
 
-public class FontSpacing : MonoBehaviour
+public class HLG_Spacing : MonoBehaviour
 {
     private FontManager fontManager;
 
-    public List<FontSpacingEntry> fontSpacingEntries;
-    private Dictionary<TMP_FontAsset, float> fontSpacingMap = new Dictionary<TMP_FontAsset, float>();
+    public List<FontSpacingEntry> HLGSpacingEntries;
+    public Dictionary<TMP_FontAsset, float> HLGSpacingMap = new Dictionary<TMP_FontAsset, float>();
 
     private float defaultFontSize;
     private float defaultSpacing;
@@ -26,7 +26,7 @@ public class FontSpacing : MonoBehaviour
     private void Start()
     {
         fontManager = GetComponent<FontManager>();
-        defaultFontSize = fontManager.defaultFontSize;
+        defaultFontSize = fontManager.fontSize;
     }
 
     public void FontChange(TMP_FontAsset newFont, float newSize)
@@ -34,7 +34,7 @@ public class FontSpacing : MonoBehaviour
         SetFontSpacing(newFont, newSize);
 
         // Set the default spacing based on the current font asset
-        if (fontSpacingMap.TryGetValue(newFont, out float currentFontSpacing))
+        if (HLGSpacingMap.TryGetValue(newFont, out float currentFontSpacing))
         {
             defaultSpacing = currentFontSpacing;
             scaledSpacing = defaultSpacing * (newSize / defaultFontSize);
@@ -53,7 +53,7 @@ public class FontSpacing : MonoBehaviour
 
     void SetFontSpacing(TMP_FontAsset newFont, float newSize)
     {
-        foreach (FontSpacingEntry entry in fontSpacingEntries)
+        foreach (FontSpacingEntry entry in HLGSpacingEntries)
         {
             if (entry.fontAsset == null)
             {
@@ -62,7 +62,7 @@ public class FontSpacing : MonoBehaviour
             }
 
             // Save the spacing value in the dictionary
-            fontSpacingMap[entry.fontAsset] = entry.spacing;
+            HLGSpacingMap[entry.fontAsset] = entry.spacing;
         }
 
         // Apply spacing for the current font asset
@@ -71,7 +71,7 @@ public class FontSpacing : MonoBehaviour
 
     void UpdateFontAndSpacing(TMP_FontAsset newFont, float newSize)
     {
-        if (fontSpacingMap.TryGetValue(newFont, out float spacing))
+        if (HLGSpacingMap.TryGetValue(newFont, out float spacing))
         {
             TextMeshProUGUI[] textComponents = chatVerticalLayout.GetComponentsInChildren<TextMeshProUGUI>(true);
 
@@ -124,4 +124,19 @@ public class FontSpacing : MonoBehaviour
             }
         }
     }
+
+    public float GetSpacingForFont(TMP_FontAsset fontAsset)
+    {
+        foreach (FontSpacingEntry entry in HLGSpacingEntries)
+        {
+            if (entry.fontAsset == fontAsset)
+            {
+                return entry.spacing;
+            }
+        }
+
+        Debug.LogWarning($"Spacing not found for font asset '{fontAsset.name}'. Returning default spacing.");
+        return 0f; // Return a default value or handle it based on your requirements
+    }
+
 }

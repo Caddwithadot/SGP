@@ -6,18 +6,55 @@ using UnityEngine.UI;
 
 public class FontManager : MonoBehaviour
 {
-    public List<TMP_FontAsset> fontAssets;
+    private HLG_Spacing hlgSpacing;
+
     public GameObject textPrefab;
     public Transform tempLayoutGroup;
 
+    public List<TMP_FontAsset> fontAssets;
     private Dictionary<TMP_FontAsset, Dictionary<char, float>> fontCharacterWidths = new Dictionary<TMP_FontAsset, Dictionary<char, float>>();
 
-    public float defaultFontSize = 36f;
+    public TMP_FontAsset font;
+    private TMP_FontAsset currentFont;
+
+    public float fontSize = 36f;
+    private float currentFontSize;
+    private float defaultFontSize;
+
+    private float textMultiplier;
 
     void Awake()
     {
+        hlgSpacing = GetComponent<HLG_Spacing>();
+
         PopulateFontAssets();
         InstantiateCharacters();
+    }
+
+    private void Start()
+    {
+        currentFont = font;
+
+        defaultFontSize = fontSize;
+        currentFontSize = fontSize;
+
+        textMultiplier = fontSize / defaultFontSize;
+    }
+
+    private void Update()
+    {
+        if(currentFontSize != fontSize || currentFont != font)
+        {
+            //multiplier used to calculate preferred widths
+            textMultiplier = fontSize / defaultFontSize;
+
+            //send the new font and/or font size
+            hlgSpacing.FontChange(font, fontSize);
+
+            //update current font and size
+            currentFontSize = fontSize;
+            currentFont = font;
+        }
     }
 
     void PopulateFontAssets()
@@ -31,10 +68,7 @@ public class FontManager : MonoBehaviour
             string path = AssetDatabase.GUIDToAssetPath(guid);
             TMP_FontAsset fontAsset = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(path);
 
-            if (fontAsset != null)
-            {
-                fontAssets.Add(fontAsset);
-            }
+            fontAssets.Add(fontAsset);
         }
     }
 
@@ -55,44 +89,67 @@ public class FontManager : MonoBehaviour
 
             foreach (char character in allCharacters)
             {
-                GameObject textObject = Instantiate(textPrefab, tempLayoutGroup);
-                TextMeshProUGUI textComponent = textObject.GetComponent<TextMeshProUGUI>();
-                
-                // Set the font size
-                textComponent.fontSize = defaultFontSize;
+                if(character != ' ')
+                {
+                    GameObject textObject = Instantiate(textPrefab, tempLayoutGroup);
+                    TextMeshProUGUI textComponent = textObject.GetComponent<TextMeshProUGUI>();
 
-                // Set the font asset
-                textComponent.font = fontAsset;
+                    // Set the font size
+                    textComponent.fontSize = fontSize;
 
-                // Set the character
-                textComponent.text = character.ToString();
+                    // Set the font asset
+                    textComponent.font = fontAsset;
 
-                // Print the preferred width
-                float preferredWidth = LayoutUtility.GetPreferredWidth(textComponent.rectTransform);
+                    // Set the character
+                    textComponent.text = character.ToString();
 
-                // Track the preferred width in the dictionary
-                characterWidths.Add(character, preferredWidth);
+                    // Print the preferred width
+                    float preferredWidth = LayoutUtility.GetPreferredWidth(textComponent.rectTransform);
+
+                    // Track the preferred width in the dictionary
+                    characterWidths.Add(character, preferredWidth);
+                }
+                else
+                {
+                    // Get spacing value from HLG_Spacing for the current font asset
+                    float spacing = hlgSpacing.GetSpacingForFont(fontAsset);
+
+                    // Track the preferred width in the dictionary
+                    characterWidths.Add(character, spacing);
+                }
             }
         }
 
         //destroy the temporary layout group after getting all font character widths
-        Destroy(tempLayoutGroup.gameObject);
+        //Destroy(tempLayoutGroup.gameObject);
 
-        // Print information for each font asset in the dictionary
-        foreach (var kvp in fontCharacterWidths)
+        // Print debug messages for character widths
+        foreach (TMP_FontAsset fontAsset in fontAssets)
         {
-            TMP_FontAsset currentFontAsset = kvp.Key;
-            Dictionary<char, float> currentCharacterWidths = kvp.Value;
-
-            Debug.Log($"Font Asset: {currentFontAsset.name}");
-
-            foreach (var characterWidth in currentCharacterWidths)
+            if (fontAsset.name.Contains("Liberation"))
             {
-                char character = characterWidth.Key;
-                float width = characterWidth.Value;
+                PrintCharacterWidths(fontAsset);
+            }
+        }
+    }
+
+    public void PrintCharacterWidths(TMP_FontAsset fontAsset)
+    {
+        if (fontCharacterWidths.TryGetValue(fontAsset, out Dictionary<char, float> characterWidths))
+        {
+            Debug.Log($"Character Widths for Font '{fontAsset.name}':");
+
+            foreach (var kvp in characterWidths)
+            {
+                char character = kvp.Key;
+                float width = kvp.Value;
 
                 Debug.Log($"Character: '{character}', Width: {width}");
             }
+        }
+        else
+        {
+            Debug.LogWarning($"No dictionary found for font '{fontAsset.name}'.");
         }
     }
 
@@ -117,7 +174,9 @@ public class FontManager : MonoBehaviour
             {
                 if (characterWidths.TryGetValue(character, out float characterWidth))
                 {
-                    sumOfWidths += characterWidth;
+                    Debug.Log(textMultiplier);
+                    // Sum the adjusted preferred widths
+                    sumOfWidths += (characterWidth * textMultiplier);
                 }
                 else
                 {
