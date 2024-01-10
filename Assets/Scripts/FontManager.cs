@@ -23,6 +23,8 @@ public class FontManager : MonoBehaviour
 
     private float textMultiplier;
 
+    public float lineThreshold = 400f;
+
     void Awake()
     {
         hlgSpacing = GetComponent<HLG_Spacing>();
@@ -122,35 +124,6 @@ public class FontManager : MonoBehaviour
 
         //destroy the temporary layout group after getting all font character widths
         //Destroy(tempLayoutGroup.gameObject);
-
-        // Print debug messages for character widths
-        foreach (TMP_FontAsset fontAsset in fontAssets)
-        {
-            if (fontAsset.name.Contains("Liberation"))
-            {
-                PrintCharacterWidths(fontAsset);
-            }
-        }
-    }
-
-    public void PrintCharacterWidths(TMP_FontAsset fontAsset)
-    {
-        if (fontCharacterWidths.TryGetValue(fontAsset, out Dictionary<char, float> characterWidths))
-        {
-            Debug.Log($"Character Widths for Font '{fontAsset.name}':");
-
-            foreach (var kvp in characterWidths)
-            {
-                char character = kvp.Key;
-                float width = kvp.Value;
-
-                Debug.Log($"Character: '{character}', Width: {width}");
-            }
-        }
-        else
-        {
-            Debug.LogWarning($"No dictionary found for font '{fontAsset.name}'.");
-        }
     }
 
     string GetAllCharacters()
@@ -167,6 +140,8 @@ public class FontManager : MonoBehaviour
     public float GetSumOfWidths(string text, TMP_FontAsset fontAsset)
     {
         float sumOfWidths = 0f;
+        float currentLineWidth = 0f;
+        string currentLine = "";
 
         if (fontCharacterWidths.TryGetValue(fontAsset, out Dictionary<char, float> characterWidths))
         {
@@ -174,14 +149,47 @@ public class FontManager : MonoBehaviour
             {
                 if (characterWidths.TryGetValue(character, out float characterWidth))
                 {
-                    Debug.Log(textMultiplier);
+                    float adjustedWidth = characterWidth * textMultiplier;
+
+                    // Check if adding the character exceeds the line threshold
+                    if (currentLineWidth + adjustedWidth > lineThreshold)
+                    {
+                        // Find the latest space within the line and split the string
+                        int lastSpaceIndex = currentLine.LastIndexOf(' ');
+
+                        if (lastSpaceIndex != -1)
+                        {
+                            string lineToPrint = currentLine.Substring(0, lastSpaceIndex);
+                            Debug.Log(lineToPrint);
+                            currentLine = currentLine.Substring(lastSpaceIndex + 1);
+                            currentLineWidth = 0f;
+                        }
+                        else
+                        {
+                            // If there is no space, print the line and reset variables for the new line
+                            Debug.Log(currentLine);
+                            currentLine = "";
+                            currentLineWidth = 0f;
+                        }
+                    }
+
                     // Sum the adjusted preferred widths
-                    sumOfWidths += (characterWidth * textMultiplier);
+                    sumOfWidths += adjustedWidth;
+
+                    // Add the character to the current line
+                    currentLine += character;
+                    currentLineWidth += adjustedWidth;
                 }
                 else
                 {
                     Debug.LogWarning($"Character '{character}' not found in the dictionary for font '{fontAsset.name}'. Skipping.");
                 }
+            }
+
+            // Print the last line if it's not empty
+            if (!string.IsNullOrEmpty(currentLine))
+            {
+                Debug.Log(currentLine);
             }
         }
         else

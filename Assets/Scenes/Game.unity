@@ -528,6 +528,7 @@ MonoBehaviour:
   fontAssets: []
   font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   fontSize: 36
+  lineThreshold: 200
 --- !u!4 &491306172
 Transform:
   m_ObjectHideFlags: 0
@@ -2170,7 +2171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fontManager: {fileID: 491306171}
   testFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  testText: 
+  testText: New Text hello hellooooo bitch womp
 --- !u!1 &2073421499
 GameObject:
   m_ObjectHideFlags: 0
