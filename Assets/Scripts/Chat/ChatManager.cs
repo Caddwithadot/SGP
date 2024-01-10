@@ -11,6 +11,7 @@ using UnityEngine;
 
 public class ChatManager : MonoBehaviour
 {
+    private FontManager fontManager;
     private ChatterSpawner chatterSpawner;
     private FinalConverter finalConverter;
 
@@ -19,6 +20,7 @@ public class ChatManager : MonoBehaviour
 
     private void Start()
     {
+        fontManager = FindObjectOfType<FontManager>();
         chatterSpawner = FindObjectOfType<ChatterSpawner>();
         finalConverter = FindObjectOfType<FinalConverter>();
 
@@ -27,6 +29,9 @@ public class ChatManager : MonoBehaviour
 
     public void NewMessage(string chatter, string message)
     {
+        //replace multiple spaces with a single space
+        message = System.Text.RegularExpressions.Regex.Replace(message, @"\s+", " ");
+
         //checks if the chatter already exists
         if (chatterSpawner.chatterDictionary.ContainsKey(chatter))
         {
@@ -47,6 +52,9 @@ public class ChatManager : MonoBehaviour
         }
 
         UpdateChatDisplayList();
+
+        //testing
+        fontManager.InGameMessage(message);
     }
 
     public void UpdateChatDisplayList()

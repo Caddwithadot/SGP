@@ -2,13 +2,19 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class FontManager : MonoBehaviour
 {
     private HLG_Spacing hlgSpacing;
 
+    public RectTransform chatCanvas;
+    public Transform verticalParent;
+
+    public GameObject horizontalParentPrefab;
     public GameObject textPrefab;
+
     public Transform tempLayoutGroup;
 
     public List<TMP_FontAsset> fontAssets;
@@ -21,9 +27,9 @@ public class FontManager : MonoBehaviour
     private float currentFontSize;
     private float defaultFontSize;
 
-    private float textMultiplier;
-
-    public float lineThreshold = 400f;
+    [HideInInspector]
+    public float textMultiplier;
+    private float lineThreshold = 400f;
 
     void Awake()
     {
@@ -45,6 +51,9 @@ public class FontManager : MonoBehaviour
 
     private void Update()
     {
+        //updates the threshold for message wrapping
+        lineThreshold = chatCanvas.sizeDelta.x;
+
         if(currentFontSize != fontSize || currentFont != font)
         {
             //multiplier used to calculate preferred widths
@@ -123,7 +132,7 @@ public class FontManager : MonoBehaviour
         }
 
         //destroy the temporary layout group after getting all font character widths
-        //Destroy(tempLayoutGroup.gameObject);
+        Destroy(tempLayoutGroup.gameObject);
     }
 
     string GetAllCharacters()
@@ -136,14 +145,13 @@ public class FontManager : MonoBehaviour
         return allCharacters;
     }
 
-    // need to update this
-    public float GetSumOfWidths(string text, TMP_FontAsset fontAsset)
+    public void InGameMessage(string text)
     {
         float sumOfWidths = 0f;
         float currentLineWidth = 0f;
         string currentLine = "";
 
-        if (fontCharacterWidths.TryGetValue(fontAsset, out Dictionary<char, float> characterWidths))
+        if (fontCharacterWidths.TryGetValue(font, out Dictionary<char, float> characterWidths))
         {
             foreach (char character in text)
             {
@@ -160,14 +168,21 @@ public class FontManager : MonoBehaviour
                         if (lastSpaceIndex != -1)
                         {
                             string lineToPrint = currentLine.Substring(0, lastSpaceIndex);
-                            Debug.Log(lineToPrint);
+
+                            //send the line to be created
+                            CreateLine(lineToPrint);
+
+                            //reset current line
                             currentLine = currentLine.Substring(lastSpaceIndex + 1);
                             currentLineWidth = 0f;
                         }
                         else
                         {
                             // If there is no space, print the line and reset variables for the new line
-                            Debug.Log(currentLine);
+                            //send the line to be created
+                            CreateLine(currentLine);
+
+                            //reset current line
                             currentLine = "";
                             currentLineWidth = 0f;
                         }
@@ -182,23 +197,43 @@ public class FontManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning($"Character '{character}' not found in the dictionary for font '{fontAsset.name}'. Skipping.");
+                    Debug.LogWarning($"Character '{character}' not found in the dictionary for font '{font.name}'. Skipping.");
                 }
             }
 
             // Print the last line if it's not empty
             if (!string.IsNullOrEmpty(currentLine))
             {
-                Debug.Log(currentLine);
+                //send the final line to be created
+                CreateLine(currentLine);
             }
         }
-        else
+    }
+
+    void CreateLine(params string[] messageLine)
+    {
+        foreach (string message in messageLine)
         {
-            Debug.LogWarning($"No dictionary found for font '{fontAsset.name}'.");
+            string[] words = message.Split(' ');
+
+            GameObject horizontalParent = Instantiate(horizontalParentPrefab, verticalParent);
+
+            if (fontCharacterWidths.TryGetValue(font, out Dictionary<char, float> characterWidths) && characterWidths.TryGetValue(' ', out float spaceWidth))
+            {
+                //update the spacing of the new hlg
+                horizontalParent.GetComponent<HorizontalLayoutGroup>().spacing = spaceWidth * textMultiplier;
+            }
+
+            //instantiate text boxes
+            foreach (string word in words)
+            {
+                GameObject textBox = Instantiate(textPrefab, horizontalParent.transform);
+                TextMeshProUGUI textComponent = textBox.GetComponentInChildren<TextMeshProUGUI>();
+
+                textComponent.font = font;
+                textComponent.fontSize = fontSize;
+                textComponent.text = word;
+            }
         }
-
-        Debug.Log($"Sum of widths for font '{fontAsset.name}' and text '{text}': {sumOfWidths}");
-
-        return sumOfWidths;
     }
 }

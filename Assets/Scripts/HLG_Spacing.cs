@@ -37,7 +37,7 @@ public class HLG_Spacing : MonoBehaviour
         if (HLGSpacingMap.TryGetValue(newFont, out float currentFontSpacing))
         {
             defaultSpacing = currentFontSpacing;
-            scaledSpacing = defaultSpacing * (newSize / defaultFontSize);
+            scaledSpacing = defaultSpacing * fontManager.textMultiplier;
 
             // Apply the scaled spacing to the HorizontalLayoutGroup
             UpdateChildLayoutGroupsSpacing(scaledSpacing);
@@ -85,8 +85,8 @@ public class HLG_Spacing : MonoBehaviour
 
             // Update defaultSpacing and scaledSpacing based on the new font asset
             float newDefaultSpacing = spacing;
-            float newSizeDifference = newSize / defaultFontSize;
-            defaultSpacing = newDefaultSpacing * newSizeDifference;
+            //float newSizeDifference = newSize / defaultFontSize;
+            defaultSpacing = newDefaultSpacing * fontManager.textMultiplier;
             scaledSpacing = newDefaultSpacing;
 
             // Apply the scaled spacing to the HorizontalLayoutGroup

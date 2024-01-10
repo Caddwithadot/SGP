@@ -100,8 +100,6 @@ public class TwitchConnect : MonoBehaviour
                 //output the username and chat message
                 chatManager.NewMessage(chatter.ToLower(), msg);
 
-                Debug.Log(chatter + ": " + msg);
-
                 //pongs the twitch chat back to prevent us from getting kicked from the chat
                 if (message.Contains("PING :tmi.twitch.tv"))
                 {
