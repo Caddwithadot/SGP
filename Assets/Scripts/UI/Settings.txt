@@ -1,0 +1,1 @@
+{"Settings":[{"FullScreen":true,"Resolution":1303,"MasterVolume":43.29999923706055,"BGMVolume":20.0,"SFXVolume":113.33999633789063,"MouseXSens":100.0,"MouseYSens":100.0}]}

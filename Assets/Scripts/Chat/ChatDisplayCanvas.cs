@@ -26,6 +26,8 @@ public class ChatDisplayCanvas : MonoBehaviour
 
     public ScrollRect scrollRect;
 
+    public int MaxChatBoxNumber = 50;
+
     void Start()
     {
         chatManager = FindObjectOfType<ChatManager>();
@@ -39,6 +41,11 @@ public class ChatDisplayCanvas : MonoBehaviour
 
     public void DisplayNewMessage(string chatter, string message)
     {
+        if (ChatBoxParent.transform.childCount >= MaxChatBoxNumber)
+        {
+            Destroy(ChatBoxParent.transform.GetChild(0).gameObject);
+        }
+
         //MOVE THIS to start or make a function
         List<string> EmoteNames = new List<string>(emoteManager.staticEmoteDictionary.Keys);
 
@@ -46,6 +53,7 @@ public class ChatDisplayCanvas : MonoBehaviour
         {
             if (message.Contains(EmoteNames[i]))
             {
+                //Not using TMP for emotes anymore
                 message = message.Replace(EmoteNames[i], "<sprite name=\"" + emoteManager.staticEmoteDictionary[EmoteNames[i]].code + "\">" );
 
                 Debug.Log(message);

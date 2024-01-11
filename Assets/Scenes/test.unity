@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366756, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427176, b: 0.56452405, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3897,7 +3897,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3888310117676735081, guid: da18e43d473bf994d859fe38ae086b60, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 780
       objectReference: {fileID: 0}
     - target: {fileID: 3888310117676735081, guid: da18e43d473bf994d859fe38ae086b60, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3933,7 +3933,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3888310117676735081, guid: da18e43d473bf994d859fe38ae086b60, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3888310117676735081, guid: da18e43d473bf994d859fe38ae086b60, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5074,6 +5074,7 @@ MonoBehaviour:
   ChatBoxPrefab: {fileID: 3888310117676735080, guid: da18e43d473bf994d859fe38ae086b60, type: 3}
   HeaderLabel: {fileID: 1458744547}
   scrollRect: {fileID: 1943060025}
+  MaxChatBoxNumber: 50
 --- !u!114 &1919395049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5842,7 +5843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deec983fc037dca4f8e26d2ae76f4916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Channel: willerz
+  Channel: caseoh_
   OAuth: oauth:vh0dxqt8dp6y58x9rg8aaa5oe5y21u
 --- !u!4 &2123809596
 Transform:
