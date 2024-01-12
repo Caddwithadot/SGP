@@ -1,3 +1,10 @@
+/*******************************************************************************
+Author: Taylor
+State: Complete
+Description:
+Adjusts layout group spacing based on the FontManager used font or text size changing to best simulate the spaces.
+*******************************************************************************/
+
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;

@@ -1,8 +1,14 @@
+/*******************************************************************************
+Author: Taylor
+State: Mostly complete, need to add emotes still and figure out what to do to fix pre-exisiting messages in the in-game chat.
+Description:
+Stores all fonts and basically acts as a custom messaging system.
+*******************************************************************************/
+
 using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class FontManager : MonoBehaviour
